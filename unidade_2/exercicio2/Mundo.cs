@@ -15,7 +15,7 @@ namespace gcgcg
       Console.WriteLine("[6] .. Desenha");
       
       GL.LineWidth(5);
-      GL.PointSize(5);
+      GL.PointSize(4);
       GL.Color3(Color.Yellow);
       GL.Begin(PrimitiveType.Points);
       float x, y, z;

@@ -28,12 +28,11 @@ namespace gcgcg
 
       OpenTK.Input.KeyboardState keyboardState = OpenTK.Input.Keyboard.GetState();
 
-      // Check Key Presses
       KeyPress(keyboardState);
 
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
-      GL.Ortho(-this.D, this.E, this.C, -this.B, -this.I, this.O);
+      GL.Ortho(-this.D, this.E, this.C, -this.B, -1, 1);
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
@@ -70,12 +69,16 @@ namespace gcgcg
         this.B = this.B + 5;
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.I)) {
-        this.I = this.I + 1;
-        this.O = this.O - 1;
+        this.E = this.E - 5;
+        this.D = this.D - 5;
+        this.C = this.C - 5;
+        this.B = this.B - 5;
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.O)) {
-        this.I = this.I - 1;
-        this.O = this.O + 1;
+        this.E = this.E + 5;
+        this.D = this.D + 5;
+        this.C = this.C + 5;
+        this.B = this.B + 5;
       }
     }
     
