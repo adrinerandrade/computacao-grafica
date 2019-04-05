@@ -12,8 +12,6 @@ namespace gcgcg
     private int D = 400;
     private int B = 400;
     private int C = 400;
-    private int I = 1;
-    private int O = 1;
     public Render(int width, int height) : base(width, height) { }
 
     protected override void OnLoad(EventArgs e)
