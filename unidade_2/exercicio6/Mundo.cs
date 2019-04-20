@@ -135,8 +135,8 @@ namespace gcgcg
 
     private List<Ponto4D> getSplinePoints() {
       List<Ponto4D> splinePoints = new List<Ponto4D>();
-      Console.Write(100 / this.controlPointsCount);
-      for (double t = 0; t <= 1; t += 1 / this.controlPointsCount) {
+      for (int i = 0; i <= this.controlPointsCount; i++) {
+        double t = (1 / this.controlPointsCount) * i;
         splinePoints.Add(this.getSplinePoint(t));
       }
       return splinePoints;

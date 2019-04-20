@@ -90,7 +90,7 @@ namespace gcgcg
         action();
       }
       Task.Run(async () => {
-        await Task.Delay(200);
+        await Task.Delay(400);
         this.listenKeyPress = true;
       });
     }
