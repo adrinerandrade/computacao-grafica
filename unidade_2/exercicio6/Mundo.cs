@@ -2,17 +2,23 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace gcgcg
 {
   class Mundo
   {
 
-    private Ponto4D[] points;
+    private List<Ponto4D> points;
     private short selectedPoint = 0;
+    private double controlPointsCount = 50;
 
     public Mundo() {
-      this.points = new Ponto4D[] {
+      this.init();
+    }
+
+    public void init() {
+      this.points = new List<Ponto4D> {
         new Ponto4D(-100, -100),
         new Ponto4D(-100, 100),
         new Ponto4D(100, 100),
@@ -26,7 +32,7 @@ namespace gcgcg
       GL.LineWidth(1);
       GL.PointSize(5);
       Ponto4D lastPoint = null;
-      for (var i = 0; i < this.points.Length; i++) {
+      for (var i = 0; i < this.points.Count; i++) {
         Ponto4D point = this.points[i];
         GL.Begin(PrimitiveType.Points);
           GL.Color3(i == this.selectedPoint ? Color.Red : Color.Blue);
@@ -39,7 +45,23 @@ namespace gcgcg
             VertexPoint(point);
           GL.End();
         }
-        lastPoint = point;
+      }
+      // this.drawSpline();
+    }
+
+    private void drawSpline() {
+      Ponto4D lastSplinePoint = null;
+      List<Ponto4D> splinePoints = getSplinePoints();
+      for (var i = 0; i < splinePoints.Count; i++) {
+        Ponto4D splinePoint = splinePoints[i];
+        if (lastSplinePoint != null) {
+          GL.Begin(PrimitiveType.Lines);
+            GL.Color3(Color.Yellow);
+            VertexPoint(lastSplinePoint);
+            VertexPoint(splinePoint);
+          GL.End();
+        }
+        lastSplinePoint = splinePoint;
       }
     }
 
@@ -67,11 +89,15 @@ namespace gcgcg
     }
 
     public void IncreaseSplineControlPoint() {
-
+      if (this.controlPointsCount < 100) {
+        this.controlPointsCount++;
+      }
     }
 
     public void DecreaseSplineControlPoint() {
-      
+      if (this.controlPointsCount > 0) {
+        this.controlPointsCount--;
+      }
     }
 
     public void moveSelectedPoint(Direction direction) {
@@ -103,7 +129,33 @@ namespace gcgcg
     }
 
     public void reset() {
-        throw new NotImplementedException();
+      this.init();
+    }
+
+    private List<Ponto4D> getSplinePoints() {
+      List<Ponto4D> splinePoints = new List<Ponto4D>();
+      Console.Write(100 / this.controlPointsCount);
+      for (double t = 0; t <= 1; t += 1 / this.controlPointsCount) {
+        splinePoints.Add(this.getSplinePoint(t));
+      }
+      return splinePoints;
+    }
+
+    private Ponto4D getSplinePoint(double t) {
+      Queue<Ponto4D> queue = new Queue<Ponto4D>();
+      this.points.ForEach(Point => queue.Enqueue(Point));
+      while (queue.Count > 1) {
+        Ponto4D ponto1 = queue.Dequeue();
+        Ponto4D ponto2 = queue.Dequeue();
+        double newX = calculate(ponto1.X, ponto2.X, t);
+        double newY = calculate(ponto1.Y, ponto2.Y, t);
+        queue.Enqueue(new Ponto4D(newX, newY));
+      }
+      return queue.Dequeue();
+    }
+
+    private double calculate(double A, double B, double t) {
+      return A + (B - A) * t;
     }
 
   }
