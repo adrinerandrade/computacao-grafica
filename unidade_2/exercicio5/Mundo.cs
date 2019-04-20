@@ -10,10 +10,10 @@ namespace gcgcg
     private Ponto4D ptoDirCim = new Ponto4D(100, 100);
     private Ponto4D ptoOrigem = new Ponto4D(0,0);
 
-    private int directionX1 = 0;
-    private int directionX2 = 100;
-    private int directionY1 = 0;
-    private int directionY2 = -100;
+    private float directionX1 = 0;
+    private float directionX2 = 100;
+    private float directionY1 = 0;
+    private float directionY2 = -100;
 
     public void Desenha()
     {
@@ -51,6 +51,14 @@ namespace gcgcg
     public void Decrease() {
       this.directionX2 += 5;
       this.directionY2 -= 5;
+    }
+
+    public void Rotate() {
+      float val = 1 + this.directionY2;
+      float val2 = 1 - this.directionX2;
+      this.directionX2 = (float)(100*Math.Sin(val2));
+      this.directionY2 = (float)(100*Math.Cos(val));
+      
     }
 
     public void SRU3D()

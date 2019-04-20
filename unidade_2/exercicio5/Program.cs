@@ -52,11 +52,14 @@ namespace gcgcg
       if (keyState.IsKeyDown(OpenTK.Input.Key.Q)) {
         mundo.LeftMove();
       }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.Z)) {
+      if (keyState.IsKeyDown(OpenTK.Input.Key.S)) {
         mundo.Increase();
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.A)) {
         mundo.Decrease();
+      }
+      if (keyState.IsKeyDown(OpenTK.Input.Key.X)) {
+        mundo.Rotate();
       }
     }
     
