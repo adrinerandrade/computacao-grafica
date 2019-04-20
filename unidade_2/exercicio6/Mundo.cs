@@ -11,7 +11,7 @@ namespace gcgcg
 
     private List<Ponto4D> points;
     private short selectedPoint = 0;
-    private double controlPointsCount = 50;
+    private double controlPointsCount = 25;
 
     public Mundo() {
       this.init();
@@ -45,8 +45,9 @@ namespace gcgcg
             VertexPoint(point);
           GL.End();
         }
+        lastPoint = point;
       }
-      // this.drawSpline();
+      this.drawSpline();
     }
 
     private void drawSpline() {
@@ -89,13 +90,13 @@ namespace gcgcg
     }
 
     public void IncreaseSplineControlPoint() {
-      if (this.controlPointsCount < 100) {
+      if (this.controlPointsCount < 50) {
         this.controlPointsCount++;
       }
     }
 
     public void DecreaseSplineControlPoint() {
-      if (this.controlPointsCount > 0) {
+      if (this.controlPointsCount > 1) {
         this.controlPointsCount--;
       }
     }

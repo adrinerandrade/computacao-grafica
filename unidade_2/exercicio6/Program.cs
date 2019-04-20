@@ -2,12 +2,15 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace gcgcg
 {
   class Render : GameWindow
   {
     Mundo mundo = new Mundo();
+    bool listenKeyPress = true;
+
     public Render(int width, int height) : base(width, height) { }
 
     protected override void OnLoad(EventArgs e)
@@ -59,10 +62,10 @@ namespace gcgcg
         this.mundo.SelectPoint(3);
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.Plus) || keyState.IsKeyDown(OpenTK.Input.Key.KeypadPlus)) {
-        this.mundo.IncreaseSplineControlPoint();
+        this.delayedKeyAction(() => this.mundo.IncreaseSplineControlPoint());
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.Minus) || keyState.IsKeyDown(OpenTK.Input.Key.KeypadMinus)) {
-        this.mundo.DecreaseSplineControlPoint();
+        this.delayedKeyAction(() => this.mundo.DecreaseSplineControlPoint());
       }
       if (keyState.IsKeyDown(OpenTK.Input.Key.C)) {
         this.mundo.moveSelectedPoint(Direction.UP);
@@ -80,7 +83,18 @@ namespace gcgcg
         this.mundo.reset();
       }
     }
-    
+
+    private void delayedKeyAction(Action action) {
+      if (this.listenKeyPress) {
+        this.listenKeyPress = false;
+        action();
+      }
+      Task.Run(async () => {
+        await Task.Delay(200);
+        this.listenKeyPress = true;
+      });
+    }
+
   }
 
   class Program
