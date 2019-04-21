@@ -143,16 +143,23 @@ namespace gcgcg
     }
 
     private Ponto4D getSplinePoint(double t) {
-      Queue<Ponto4D> queue = new Queue<Ponto4D>();
-      this.points.ForEach(Point => queue.Enqueue(Point));
-      while (queue.Count > 1) {
-        Ponto4D ponto1 = queue.Dequeue();
-        Ponto4D ponto2 = queue.Dequeue();
+      Queue<Ponto4D> pointQueue = new Queue<Ponto4D>();
+      Queue<Ponto4D> resultQueue = new Queue<Ponto4D>();
+      this.points.ForEach(Point => pointQueue.Enqueue(Point));
+      while (pointQueue.Count > 1) {
+        Ponto4D ponto1 = pointQueue.Dequeue();
+        Ponto4D ponto2 = pointQueue.Peek();
         double newX = calculate(ponto1.X, ponto2.X, t);
         double newY = calculate(ponto1.Y, ponto2.Y, t);
-        queue.Enqueue(new Ponto4D(newX, newY));
+        resultQueue.Enqueue(new Ponto4D(newX, newY));
+        if (pointQueue.Count <= 1) {
+          var tmpQueue = pointQueue;
+          tmpQueue.Clear();
+          pointQueue = resultQueue;
+          resultQueue = tmpQueue;
+        }
       }
-      return queue.Dequeue();
+      return pointQueue.Dequeue();
     }
 
     private double calculate(double A, double B, double t) {
