@@ -2,79 +2,106 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Input;
+
 
 namespace gcgcg
 {
-  class Mundo
-  {
-    private Ponto4D ptoDirCim = new Ponto4D(100, 100);
-    private Ponto4D ptoOrigem = new Ponto4D(0,0);
-
-    private float directionX1 = 0;
-    private float directionX2 = 100;
-    private float directionY1 = 0;
-    private float directionY2 = -100;
-
-    public void Desenha()
+    class Mundo : IKeyDownListener
     {
-      Console.WriteLine("[6] .. Desenha");
-      
-      GL.LineWidth(1);
-      GL.PointSize(4);
-      GL.Color3(Color.Yellow);
-      GL.Begin(PrimitiveType.Lines);
-        GL.Vertex3(this.directionX1, this.directionY1, 0);
-        GL.Vertex3(this.directionX2, this.directionY2, 0);
-      GL.End();
-    }
+        static double angulo = 45;
+        static double raio = 100;
+        static Ponto4D ponto1 = Ponto4D.InstanceFrom(angulo, 0);
+        static Ponto4D ponto2 = Ponto4D.InstanceFrom(angulo, raio, ponto1);
+        Ponto4D ponto3 = Ponto4D.InstanceFrom(angulo, raio);
 
-    public void RightMove() {
-      this.directionX1 += 5;
-      this.directionX2 += 5;
-    }
+        Camera camera;
 
-    public void LeftMove() {
-      this.directionX1 -= 5;
-      this.directionX2 -= 5;
-    }
+        public Mundo(Camera camera)
+        {
+            this.camera = camera;
+            camera.SetOnKeyDownListener(this);
+        }
 
-    public void Height() {
-      this.directionX2 -= 5;
-      this.directionY2 += 5;
-    }
+        public void Render()
+        {
 
-    public void Increase() {
-      this.directionX2 -= 5;
-      this.directionY2 += 5;
-    }
+            GL.LineWidth(5);
+            GL.Color3(Color.Blue);
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(ponto1.X, ponto1.Y);
+            GL.Vertex2(ponto2.X, ponto2.Y);
+            GL.End();
+        }
 
-    public void Decrease() {
-      this.directionX2 += 5;
-      this.directionY2 -= 5;
-    }
+        public void SetPonto1(double x, double y)
+        {
+            ponto1.X = x;
+            ponto1.Y = y;
+        }
 
-    public void Rotate() {
-      float val = 1 + this.directionY2;
-      float val2 = 1 - this.directionX2;
-      this.directionX2 = (float)(100*Math.Sin(val2));
-      this.directionY2 = (float)(100*Math.Cos(val));
-      
-    }
+        public void SetPonto2(Ponto4D ponto)
+        {
+            ponto2 = ponto;
+        }
+        public void SetPonto2(double x, double y)
+        {
+            ponto2.X = x;
+            ponto2.Y = y;
+        }
 
-    public void SRU3D()
-    {
-      Console.WriteLine("[5] .. SRU3D");
+        public void OnKeyPressed(KeyboardKeyEventArgs key)
+        {
 
-      GL.LineWidth(1);
-      GL.Begin(PrimitiveType.Lines);
-      GL.Color3(Color.Red);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(200, 0, 0);
-      GL.Color3(Color.Green);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, -200, 0);
-      GL.Color3(Color.Blue);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, 0, 200);
-      GL.End();
+            Console.WriteLine(key.Key.ToString());
+
+            //movimentar esquerda (Q)
+            if (Key.Q.Equals(key.Key))
+            {
+                this.SetPonto1(ponto1.X - 2, ponto1.Y);
+                this.SetPonto2(ponto2.X - 2, ponto2.Y);
+
+            }
+
+            //movimentar direita (W)
+            if (Key.W.Equals(key.Key))
+            {
+                this.SetPonto1(ponto1.X + 2, ponto1.Y);
+                this.SetPonto2(ponto2.X + 2, ponto2.Y);
+            }
+
+            //diminuir (A)
+            if (Key.A.Equals(key.Key))
+            {
+                if (raio >= 0)
+                {
+                    raio -= 5;
+                    ponto2.UpdateRaio(raio);
+                }
+            }
+
+            //aumentar (S)
+            if (Key.S.Equals(key.Key))
+            {
+                raio += 5;
+                ponto2.UpdateRaio(raio);
+            }
+
+            //rotacionar sentido anti horario (diminuir) (Z)
+            if (Key.Z.Equals(key.Key))
+            {
+                angulo += 1;
+                ponto2.UpdateAngulo(angulo);
+            }
+
+            //rotacionar sentido horario (aumentar) (X)
+            if (Key.X.Equals(key.Key))
+            {
+                angulo -= 1;
+                ponto2.UpdateAngulo(angulo);
+            }
+
+        }
     }
-  }
 
 }

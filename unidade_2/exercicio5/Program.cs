@@ -5,65 +5,48 @@ using System.Drawing;
 
 namespace gcgcg
 {
-  class Render : GameWindow
-  {
-    Mundo mundo = new Mundo();
-    public Render(int width, int height) : base(width, height) { }
-
-    protected override void OnLoad(EventArgs e)
+  public class Render : GameWindow
     {
-      base.OnLoad(e);
-      Console.WriteLine("[2] .. OnLoad");
+        Camera camera;
+        Mundo mundo ;
+        public Render(int width, int height) : base(width, height)
+        {
+            this.camera = new Camera(this);
+            camera.InitOrtho(-400, 400, -400, 400);//camera
+
+            this.mundo = new Mundo(camera);
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+        }
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            camera.Ortho();//camera
+
+        
+            
+
+        }
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            base.OnRenderFrame(e);
+
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.ClearColor(Color.White);
+            GL.MatrixMode(MatrixMode.Modelview);
+
+            SRU3D.Render();
+            mundo.Render();
+
+            this.SwapBuffers();
+        }
     }
-    protected override void OnUpdateFrame(FrameEventArgs e)
-    {
-      base.OnUpdateFrame(e);
-      Console.WriteLine("[3] .. OnUpdateFrame");
-
-      OpenTK.Input.KeyboardState keyboardState = OpenTK.Input.Keyboard.GetState();
-
-      KeyPress(keyboardState);
-
-      GL.MatrixMode(MatrixMode.Projection);
-      GL.LoadIdentity();
-      GL.Ortho(-400, 400, 400, -400, -1, 1);
-    }
-
-    protected override void OnRenderFrame(FrameEventArgs e)
-    {
-      base.OnRenderFrame(e);
-      Console.WriteLine("[4] .. OnRenderFrame");
-      
-      GL.Clear(ClearBufferMask.ColorBufferBit);
-      GL.ClearColor(Color.Gray);
-      GL.MatrixMode(MatrixMode.Modelview);
-
-      mundo.SRU3D();
-      mundo.Desenha();
-
-      this.SwapBuffers();
-    }
-
-    public void KeyPress(OpenTK.Input.KeyboardState keyState)
-    {
-      if (keyState.IsKeyDown(OpenTK.Input.Key.W)) {
-        mundo.RightMove();
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.Q)) {
-        mundo.LeftMove();
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.S)) {
-        mundo.Increase();
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.A)) {
-        mundo.Decrease();
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.X)) {
-        mundo.Rotate();
-      }
-    }
-    
-  }
 
   class Program
   {
