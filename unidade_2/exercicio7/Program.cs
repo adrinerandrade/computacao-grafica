@@ -23,8 +23,6 @@ namespace gcgcg
       base.OnUpdateFrame(e);
       Console.WriteLine("[3] .. OnUpdateFrame");
 
-      OpenTK.Input.KeyboardState keyboardState = OpenTK.Input.Keyboard.GetState();
-
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(-400, 400, -400, 400, -1, 1);
@@ -39,10 +37,27 @@ namespace gcgcg
       GL.ClearColor(Color.Gray);
       GL.MatrixMode(MatrixMode.Modelview);
 
+      OpenTK.Input.KeyboardState keyboardState = OpenTK.Input.Keyboard.GetState();
+      KeyPress(keyboardState);
       mundo.SRU3D();
       mundo.Desenha();
 
       this.SwapBuffers();
+    }
+
+    public void KeyPress(OpenTK.Input.KeyboardState keyState) {
+      if (keyState.IsKeyDown(OpenTK.Input.Key.C)) {
+        this.mundo.moveSelectedPoint(Direction.UP);
+      }
+      if (keyState.IsKeyDown(OpenTK.Input.Key.B)) {
+        this.mundo.moveSelectedPoint(Direction.DOWN);
+      }
+      if (keyState.IsKeyDown(OpenTK.Input.Key.E)) {
+        this.mundo.moveSelectedPoint(Direction.LEFT);
+      }
+      if (keyState.IsKeyDown(OpenTK.Input.Key.D)) {
+        this.mundo.moveSelectedPoint(Direction.RIGHT);
+      }
     }
 
   }

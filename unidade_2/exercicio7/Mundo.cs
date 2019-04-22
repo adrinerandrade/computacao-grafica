@@ -16,18 +16,12 @@ namespace gcgcg
     private double circleY;
     private double squareBaseX;
     private double squareBaseY;
-    private double x = 1;
+    private bool squareConflict;
+    private bool circleConflict;
 
     public Mundo() {
       circleX = center;
       circleY = center;
-      Task.Run(async () => {
-        while(true) {
-          await Task.Delay(500);
-          x++;
-          Console.WriteLine(x);
-        }
-      });
     }
 
     public void Desenha()
@@ -35,6 +29,7 @@ namespace gcgcg
       Console.WriteLine("[6] .. Desenha");
       GL.PointSize(1);
       GL.LineWidth(1);
+      this.verifyConflicts();
       this.drawLimitCircle();
       this.drawMainCircle();
     }
@@ -54,9 +49,63 @@ namespace gcgcg
       GL.End();
     }
 
+    public void moveSelectedPoint(Direction direction) {
+      double xDesloc = 0;
+      double yDesloc = 0;
+      double moveSpeed = 1;
+      switch (direction) {
+        case Direction.UP:
+          yDesloc = moveSpeed;
+          break;
+        case Direction.DOWN:
+          yDesloc = -moveSpeed;
+          break;
+        case Direction.RIGHT:
+          xDesloc = moveSpeed;
+          break;
+        case Direction.LEFT:
+          xDesloc = -moveSpeed;
+          break;
+      }
+      double newX = this.circleX + xDesloc;
+      double newY = this.circleY + yDesloc;
+      if (!verifyNewCirclePositioning(newX, newY)) {
+        this.circleX = newX;
+        this.circleY = newY;
+      };
+    }
+
+    private void verifyConflicts() {
+      squareConflict = false;
+      circleConflict = false;
+      circleConflict = verifyCircleConflict();
+      squareConflict = verifySquareConlfict();
+    }
+
+    private bool verifyNewCirclePositioning(double circleXPosition, double circleYPosition) {
+      return Math.Sqrt(Math.Pow(center - circleXPosition, 2) + Math.Pow(center - circleYPosition, 2)) > limit + 2;
+    }
+
+    private bool verifyCircleConflict() {
+      return Math.Sqrt(Math.Pow(center - circleX, 2) + Math.Pow(center - circleY, 2)) >= limit;
+    }
+
+    private bool verifySquareConlfict() {
+      double squareX = this.center + this.squareBaseX;
+      double squareY = this.center + this.squareBaseY;
+      double squareNegX = this.center - this.squareBaseX;
+      double squareNegY = this.center - this.squareBaseY;
+      return (
+        this.circleX >= squareX ||
+        this.circleX <= squareNegX ||
+        this.circleY >= squareY ||
+        this.circleY <= squareNegY
+      );
+    }
+
     private void drawLimitCircle() {
       this.drawCircle(center, center, limit);
-      GL.Color3(Color.Purple);
+      GL.Color3(circleConflict ? Color.Cyan : squareConflict ? Color.Yellow : Color.Purple);
       GL.Begin(PrimitiveType.Lines);
         squareBaseX = -(limit * Math.Sin(4));
         squareBaseY = -(limit * Math.Cos(4));
@@ -66,11 +115,6 @@ namespace gcgcg
           new Ponto4D(-squareBaseX, -squareBaseY),
           new Ponto4D(-squareBaseX, squareBaseY),
         });
-      GL.End();
-      GL.PointSize(5);
-      GL.Color3(Color.Red);
-      GL.Begin(PrimitiveType.Points);
-        VertexPoint(new Ponto4D(center + squareBaseX, center + squareBaseY));
       GL.End();
       GL.PointSize(2);
     }
