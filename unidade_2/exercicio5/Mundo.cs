@@ -53,8 +53,6 @@ namespace gcgcg
         public void OnKeyPressed(KeyboardKeyEventArgs key)
         {
 
-            Console.WriteLine(key.Key.ToString());
-
             //movimentar esquerda (Q)
             if (Key.Q.Equals(key.Key))
             {
