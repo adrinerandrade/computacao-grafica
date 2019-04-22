@@ -12,6 +12,8 @@ namespace gcgcg
 
     private double center = 150;
     private double limit = 125;
+    private double limitPow;
+    private double limitPowPlus;
     private double circleX;
     private double circleY;
     private double squareBaseX;
@@ -22,6 +24,8 @@ namespace gcgcg
     public Mundo() {
       circleX = center;
       circleY = center;
+      limitPow = Math.Pow(limit, 2);
+      limitPowPlus = Math.Pow(limit + 2, 2);
     }
 
     public void Desenha()
@@ -71,11 +75,11 @@ namespace gcgcg
     }
 
     private bool verifyNewCirclePositioning(double circleXPosition, double circleYPosition) {
-      return (Math.Pow(center - circleXPosition, 2) + Math.Pow(center - circleYPosition, 2)) > Math.Pow(limit + 2, 2);
+      return (Math.Pow(center - circleXPosition, 2) + Math.Pow(center - circleYPosition, 2)) > limitPowPlus;
     }
 
     private bool verifyCircleConflict() {
-      return (Math.Pow(center - circleX, 2) + Math.Pow(center - circleY, 2)) >= Math.Pow(limit, 2);
+      return (Math.Pow(center - circleX, 2) + Math.Pow(center - circleY, 2)) >= limitPow;
     }
 
     private bool verifySquareConlfict() {
