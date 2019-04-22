@@ -107,8 +107,10 @@ namespace gcgcg
       this.drawCircle(center, center, limit);
       GL.Color3(circleConflict ? Color.Cyan : squareConflict ? Color.Yellow : Color.Purple);
       GL.Begin(PrimitiveType.Lines);
-        squareBaseX = -(limit * Math.Sin(4));
-        squareBaseY = -(limit * Math.Cos(4));
+        double angle = 45;
+        angle *= Math.PI / 180;
+        squareBaseX = limit * Math.Cos(angle);
+        squareBaseY = limit * Math.Sin(angle);
         this.drawSquare(center, new Ponto4D[] {
           new Ponto4D(squareBaseX, squareBaseY),
           new Ponto4D(squareBaseX, -squareBaseY),
@@ -134,7 +136,7 @@ namespace gcgcg
       GL.Begin(PrimitiveType.Points);
         for (double i = 0; i <= 720; i ++)
         {
-          VertexPoint(new Ponto4D(x + (raio * Math.Sin(i)), y + (raio * Math.Cos(i))));
+          VertexPoint(new Ponto4D(x + (raio * Math.Cos(i)), y + (raio * Math.Sin(i))));
         }
       GL.End();
     }
