@@ -83,11 +83,11 @@ namespace gcgcg
     }
 
     private bool verifyNewCirclePositioning(double circleXPosition, double circleYPosition) {
-      return Math.Sqrt(Math.Pow(center - circleXPosition, 2) + Math.Pow(center - circleYPosition, 2)) > limit + 2;
+      return (Math.Pow(center - circleXPosition, 2) + Math.Pow(center - circleYPosition, 2)) > Math.Pow(limit + 2, 2);
     }
 
     private bool verifyCircleConflict() {
-      return Math.Sqrt(Math.Pow(center - circleX, 2) + Math.Pow(center - circleY, 2)) >= limit;
+      return (Math.Pow(center - circleX, 2) + Math.Pow(center - circleY, 2)) >= Math.Pow(limit, 2);
     }
 
     private bool verifySquareConlfict() {
