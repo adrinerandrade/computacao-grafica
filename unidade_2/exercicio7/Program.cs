@@ -9,7 +9,9 @@ namespace gcgcg
   class Render : GameWindow
   {
     Mundo mundo = new Mundo();
-    bool listenKeyPress = true;
+    private bool mouseWasPressed = false;
+    private double lastMouseX = 0;
+    private double lastMouseY = 0;
 
     public Render(int width, int height) : base(width, height) { }
 
@@ -37,26 +39,34 @@ namespace gcgcg
       GL.ClearColor(Color.Gray);
       GL.MatrixMode(MatrixMode.Modelview);
 
-      OpenTK.Input.KeyboardState keyboardState = OpenTK.Input.Keyboard.GetState();
-      KeyPress(keyboardState);
       mundo.SRU3D();
       mundo.Desenha();
 
       this.SwapBuffers();
     }
 
-    public void KeyPress(OpenTK.Input.KeyboardState keyState) {
-      if (keyState.IsKeyDown(OpenTK.Input.Key.C)) {
-        this.mundo.moveSelectedPoint(Direction.UP);
+    protected override void OnMouseUp(OpenTK.Input.MouseButtonEventArgs e) {
+      base.OnMouseUp(e);
+      this.mundo.reset();
+    }
+
+    protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
+      base.OnMouseMove(e);
+      bool mousePressed = e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Left);
+      this.mouseWasPressed = mousePressed;
+      if (mousePressed && mouseWasPressed) {
+        double xDesloc = e.X - lastMouseX;
+        double yDesloc = lastMouseY - e.Y;
+        this.mundo.moveSelectedPoint(xDesloc, yDesloc);
       }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.B)) {
-        this.mundo.moveSelectedPoint(Direction.DOWN);
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.E)) {
-        this.mundo.moveSelectedPoint(Direction.LEFT);
-      }
-      if (keyState.IsKeyDown(OpenTK.Input.Key.D)) {
-        this.mundo.moveSelectedPoint(Direction.RIGHT);
+      if (!mousePressed) {
+        mouseWasPressed = false;
+        lastMouseX = 0;
+        lastMouseY = 0;
+      } else {
+        mouseWasPressed = true;
+        lastMouseX = e.X;
+        lastMouseY = e.Y;
       }
     }
 

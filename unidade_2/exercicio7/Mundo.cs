@@ -49,30 +49,18 @@ namespace gcgcg
       GL.End();
     }
 
-    public void moveSelectedPoint(Direction direction) {
-      double xDesloc = 0;
-      double yDesloc = 0;
-      double moveSpeed = 1;
-      switch (direction) {
-        case Direction.UP:
-          yDesloc = moveSpeed;
-          break;
-        case Direction.DOWN:
-          yDesloc = -moveSpeed;
-          break;
-        case Direction.RIGHT:
-          xDesloc = moveSpeed;
-          break;
-        case Direction.LEFT:
-          xDesloc = -moveSpeed;
-          break;
-      }
+    public void moveSelectedPoint(double xDesloc, double yDesloc) {
       double newX = this.circleX + xDesloc;
       double newY = this.circleY + yDesloc;
       if (!verifyNewCirclePositioning(newX, newY)) {
         this.circleX = newX;
         this.circleY = newY;
       };
+    }
+
+    public void reset() {
+      this.circleX = center + 0;
+      this.circleY = center + 0;
     }
 
     private void verifyConflicts() {
