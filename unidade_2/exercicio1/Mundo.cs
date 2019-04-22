@@ -22,8 +22,8 @@ namespace gcgcg
       double i;
         for (i = 0; i <= 72; i ++)
         {
-            x = (float)(100*Math.Sin(i));
-            y = (float)(100*Math.Cos(i));
+            x = (float)(100*Math.Cos(i));
+            y = (float)(100*Math.Sin(i));
             z = (float)0;
             GL.Vertex3(x, y, z);
         }
