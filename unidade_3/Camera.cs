@@ -7,7 +7,36 @@ namespace gcgcg
 {
   public class Camera : GameWindow
   {
-    public Camera(int width, int height) : base(width, height) { }
+
+    /// <summary>
+    /// Monitora os eventos do GameWindow
+    /// </summary>
+    private EventObserver eventObserver;
+
+    /// <summary>
+    /// Constroi uma nova camera
+    /// </summary>
+    /// <param name="width">Largura da tela</param>
+    /// <param name="height">Altura da tela</param>
+    /// <returns>Void</returns>
+    public Camera(int width, int height) : base(width, height) {
+      this.eventObserver = new EventObserver();
+    }
+
+    /// <summary>
+    /// Monitora os eventos do mouse
+    /// </summary>
+    protected override void OnMouseDown(OpenTK.Input.MouseButtonEventArgs e) {
+      base.OnMouseDown(e);
+      if (e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Left)) {
+        eventObserver.addKey(Key.MouseLeft);
+        eventObserver.emitCapturedEvent();
+      }
+      if (e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Right)) {
+        eventObserver.addKey(Key.MouseRight);
+        eventObserver.emitCapturedEvent();
+      }
+    }
 
     protected override void OnLoad(EventArgs e)
     {
