@@ -29,12 +29,12 @@ namespace gcgcg
     protected override void OnMouseDown(OpenTK.Input.MouseButtonEventArgs e) {
       base.OnMouseDown(e);
       if (e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Left)) {
-        eventObserver.addKey(Key.MouseLeft);
-        eventObserver.emitCapturedEvent();
+        eventObserver.AddKey(Key.MouseLeft);
+        eventObserver.SetMouseDown(true);
       }
       if (e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Right)) {
-        eventObserver.addKey(Key.MouseRight);
-        eventObserver.emitCapturedEvent();
+        eventObserver.AddKey(Key.MouseRight);
+        eventObserver.SetMouseDown(true);
       }
     }
 

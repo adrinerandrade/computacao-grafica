@@ -18,6 +18,8 @@ namespace gcgcg
         /// </summary>
         private List<Key> keys = new List<Key>();
 
+        private bool isMouseDown = false;
+
         /// <summary>
         /// Estado do teclado no momento do loop
         /// </summary>
@@ -38,16 +40,38 @@ namespace gcgcg
         /// </summary>
         private void ObserverEvents()
         {
+            bool isOldClick = false;
             while (true)
             {
-                if (IsAnyKeyDown())
+                if (isMouseDown)
                 {
+                    SetMouseDown(false);
                     keyboardState = OpenTK.Input.Keyboard.GetState();
-                    onKeyDown();
+                    OnKeyDown();
+                    EmitCapturedEvent();
+                    isOldClick = true;
+                } else if (IsAnyKeyDown()) {
+                    keyboardState = OpenTK.Input.Keyboard.GetState();
+                    OnKeyDown();
+                    if (isOldClick) {
+                        isOldClick = false;
+                        EventBlock();
+                    }
                 }
                 else
                 {
-                    emitCapturedEvent();
+                    EmitCapturedEvent();
+                }
+            }
+        }
+
+        private void EventBlock() {
+            while (true) {
+                if (!IsAnyKeyDown()) {
+                    keys.Clear();
+                    break;
+                } else if (isMouseDown) {
+                    break;
                 }
             }
         }
@@ -55,22 +79,29 @@ namespace gcgcg
         /// <summary>
         /// Emita um evento quando não existem teclas pressionadas e a lista de keys não for vazia
         /// </summary>
-        public void emitCapturedEvent()
+        public void EmitCapturedEvent()
         {
+            if (keys.Count > 0)
+            {
+                ShowEmitedCapturedEvent();
+                keys.Clear();
+            }
+        }
+
+        private void ShowEmitedCapturedEvent() {
             if (keys.Count > 0)
             {
                 foreach (var item in keys)
                 {
                     Console.WriteLine(item);
                 }
-                keys.Clear();
             }
         }
 
         /// <summary>
         /// Verifica qual tecla está sendo segurada
         /// </summary>
-        private void onKeyDown()
+        private void OnKeyDown()
         {
             foreach (var value in ExternalKey.acceptKey)
             {
@@ -78,31 +109,31 @@ namespace gcgcg
                 {
                     if (value.Equals(OpenTK.Input.Key.B))
                     {
-                        addKey(Key.B);
+                        AddKey(Key.B);
                     }
                     if (value.Equals(OpenTK.Input.Key.P))
                     {
-                        addKey(Key.P);
+                        AddKey(Key.P);
                     }
                     if (value.Equals(OpenTK.Input.Key.R))
                     {
-                        addKey(Key.R);
+                        AddKey(Key.R);
                     }
                     if (value.Equals(OpenTK.Input.Key.G))
                     {
-                        addKey(Key.G);
+                        AddKey(Key.G);
                     }
                     if (value.Equals(OpenTK.Input.Key.A))
                     {
-                        addKey(Key.A);
+                        AddKey(Key.A);
                     }
                     if (value.Equals(OpenTK.Input.Key.ControlLeft))
                     {
-                        addKey(Key.ControlLeft);
+                        AddKey(Key.ControlLeft);
                     }
                     if (value.Equals(OpenTK.Input.Key.Space))
                     {
-                        addKey(Key.Space);
+                        AddKey(Key.Space);
                     }
                 }
             }
@@ -111,8 +142,7 @@ namespace gcgcg
         /// <summary>
         /// Adiciona uma nova tecla na lista keys.
         /// </summary>
-        /// <param name="key"></param>
-        public void addKey(Key key)
+        public void AddKey(Key key)
         {
             if (!keys.Contains(key))
             {
@@ -126,9 +156,13 @@ namespace gcgcg
         /// <returns>bool</returns>
         private bool IsAnyKeyDown()
         {
-            return
-                OpenTK.Input.Keyboard.GetState().IsAnyKeyDown ||
-                OpenTK.Input.Mouse.GetState().IsAnyButtonDown;
+            return OpenTK.Input.Keyboard.GetState().IsAnyKeyDown;
         }
+
+        public void SetMouseDown(bool isMouseDown) {
+            this.isMouseDown = isMouseDown;
+        }
+
+
     }
 }
