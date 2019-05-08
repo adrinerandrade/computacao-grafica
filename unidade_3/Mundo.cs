@@ -33,6 +33,10 @@ namespace gcgcg
       camera.Run();
       camera.Run(1.0/60.0);
     }
+
+    public void AddPolygon(Poligono polygon) {
+      this.poligonos.Add(polygon);
+    }
     
   }
 
