@@ -12,12 +12,12 @@ namespace gcgcg
     /// <summary>
     /// Poligonos plotados na tela
     /// </summary>
-    private List<Poligono> poligonos = new List<Poligono>();
+    private List<Polygon> poligonos = new List<Polygon>();
 
     /// <summary>
     /// Poligono atualmente selecionado
     /// </summary>
-    private Poligono poligonoSelected;
+    private Polygon poligonoSelected;
 
     /// <summary>
     /// Informaçào se o poligono é filho de outro poligono
@@ -32,6 +32,7 @@ namespace gcgcg
     public Mundo() {
       camera.Run();
       camera.Run(1.0/60.0);
+      poligonos.Add(new Polygon());
     }
     
   }
