@@ -46,10 +46,10 @@ namespace gcgcg
       };
       GL.Color3(Color.Blue);
       GL.Begin(PrimitiveType.Lines);
-      GL.Color3(Color.BlueViolet);
-      vertexPoint(vertices[0]); vertexPoint(vertices[1]);
-      vertexPoint(vertices[1]); vertexPoint(vertices[2]);
-      vertexPoint(vertices[2]); vertexPoint(vertices[0]);
+        GL.Color3(Color.BlueViolet);
+        vertexPoint(vertices[0]); vertexPoint(vertices[1]);
+        vertexPoint(vertices[1]); vertexPoint(vertices[2]);
+        vertexPoint(vertices[2]); vertexPoint(vertices[0]);
       GL.End();
       return vertices;
     }

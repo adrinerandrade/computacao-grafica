@@ -9,23 +9,32 @@ namespace gcgcg
 {
   public class Polygon
   {
-      private List<Ponto4D> points4D = new List<Ponto4D>();
-      private PrimitiveType primitive;
-      private List<Polygon> polygons = new List<Polygon>();
-      private string color;
+    public List<Ponto4D> points4D { get; set; }
+    public PrimitiveType primitive { get; set; } = PrimitiveType.Lines;
+    public List<Polygon> polygons { get; set; }
+    public string color;
 
-      private void Draw() {
-        GL.Color3(Color.Black);
-        GL.Begin(primitive);
-        foreach (var point in points4D)
-        {
-          GL.Vertex3(point.X, point.Y, point.Z); 
-          foreach (var poligono in polygons)
-          {
-              poligono.Draw();
-          }
-        }
-        GL.End();
+    public void Draw()
+    {
+      GL.Color3(Color.Black);
+      GL.Begin(primitive);
+      foreach (var point in points4D)
+      {
+        GL.Vertex3(point.X, point.Y, point.Z);
+        DrawChildrens();
       }
+      GL.End();
+    }
+
+    private void DrawChildrens()
+    {
+      if (polygons != null)
+      {
+        foreach (var poligono in polygons)
+        {
+          poligono.Draw();
+        }
+      }
+    }
   }
 }

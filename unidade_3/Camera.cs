@@ -2,6 +2,7 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace gcgcg
 {
@@ -12,6 +13,7 @@ namespace gcgcg
     /// Monitora os eventos do GameWindow
     /// </summary>
     private EventObserver eventObserver;
+    private Mundo mundo;
 
     /// <summary>
     /// Constroi uma nova camera
@@ -19,8 +21,9 @@ namespace gcgcg
     /// <param name="width">Largura da tela</param>
     /// <param name="height">Altura da tela</param>
     /// <returns>Void</returns>
-    public Camera(int width, int height) : base(width, height) {
-      this.eventObserver = new EventObserver();
+    public Camera(int width, int height, Mundo mundo) : base(width, height) {
+      this.mundo = mundo;
+      this.eventObserver = new EventObserver(this.mundo);
     }
 
     /// <summary>
@@ -57,6 +60,8 @@ namespace gcgcg
       GL.Clear(ClearBufferMask.ColorBufferBit);
       GL.ClearColor(Color.Gray);
       GL.MatrixMode(MatrixMode.Modelview);
+
+      mundo.Draw();
 
       this.SwapBuffers();
     }
