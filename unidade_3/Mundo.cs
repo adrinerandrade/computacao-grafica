@@ -29,26 +29,51 @@ namespace gcgcg
     /// </summary>
     private Camera camera;
 
-    public Mundo() {
+    public Mundo()
+    {
       var polygon = new Polygon();
       polygon.points4D = new List<Ponto4D>() {
-        new Ponto4D() { X = 200, Y = 200, Z = 0 },
-        new Ponto4D() { X = -200, Y = -200, Z = 0 }
+        new Ponto4D(100, 100),
+        new Ponto4D(-100, 100),
+        new Ponto4D(-100, 100),
+        new Ponto4D(0, -100),
+        new Ponto4D(0, -100),
+        new Ponto4D(100, 100)
       };
       polygons.Add(polygon);
+      var polygon2 = new Polygon();
+      polygon2.points4D = new List<Ponto4D>() {
+        new Ponto4D(-100, -100),
+        new Ponto4D(-300, -100),
+        new Ponto4D(-300, -100),
+        new Ponto4D(-200, -300),
+        new Ponto4D(-200, -300),
+        new Ponto4D(-100, -100)
+      };
+      polygons.Add(polygon2);
+      polygonSelected = polygon2;
       camera = new Camera(400, 400, this);
       camera.Run();
-      camera.Run(1.0/60.0);
+      camera.Run(1.0 / 60.0);
     }
 
-    public void Draw() {
-      Console.WriteLine(polygons.Count);
+    public void Draw()
+    {
       foreach (var polygon in polygons)
       {
-          polygon.Draw();
+        polygon.Draw();
+        if (polygon == polygonSelected)
+        {
+          if (polygon.Bbox == null) {
+            polygon.Bbox = new Bbox(polygon.points4D);
+          }
+          polygon.Bbox.Draw();
+        } else {
+          polygon.Bbox = null;
+        }
       }
     }
-    
+
   }
 
 }

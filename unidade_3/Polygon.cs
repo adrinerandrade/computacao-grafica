@@ -11,21 +11,23 @@ namespace gcgcg
   {
     public List<Ponto4D> points4D { get; set; }
     public PrimitiveType primitive { get; set; } = PrimitiveType.Lines;
+    public Bbox Bbox { get; set; }
     public List<Polygon> polygons { get; set; }
-    public string color;
+    public Color color { get; set; } = Color.Black;
+    public void SelectClosestVertex(double x, double y) {
 
+    }
     public void Draw()
     {
-      GL.Color3(Color.Black);
+      GL.Color3(color);
       GL.Begin(primitive);
       foreach (var point in points4D)
       {
         GL.Vertex3(point.X, point.Y, point.Z);
-        DrawChildrens();
       }
+      DrawChildrens();
       GL.End();
     }
-
     private void DrawChildrens()
     {
       if (polygons != null)
