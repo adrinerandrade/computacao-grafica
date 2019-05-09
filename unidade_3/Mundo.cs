@@ -35,7 +35,7 @@ namespace gcgcg
       poligonos.Add(new Polygon());
     }
 
-    public void AddPolygon(Poligono polygon) {
+    public void AddPolygon(Polygon polygon) {
       this.poligonos.Add(polygon);
     }
     

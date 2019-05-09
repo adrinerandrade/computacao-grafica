@@ -2,12 +2,13 @@ using System.Collections.Generic;
 
 namespace gcgcg
 {
-    public class MainState : State
+  public class MainState : IState
+  {
+    public IState Perform(List<Key> keys, Mundo mundo)
     {
-        public State Perform(List<Key> keys, Mundo mundo)
-        {
-            return this;
-        }
 
+      return this;
     }
+
+  }
 }
