@@ -33,7 +33,6 @@ namespace gcgcg
     protected override void OnMouseDown(OpenTK.Input.MouseButtonEventArgs e) {
       base.OnMouseDown(e);
       if (e.Mouse.IsButtonDown(OpenTK.Input.MouseButton.Left)) {
-        mundo.pointSelected = new Ponto4D(e.X, 600 - e.Y);
         eventObserver.AddKey(Key.MouseLeft);
         eventObserver.SetMouseDown(true);
       }
@@ -41,6 +40,10 @@ namespace gcgcg
         eventObserver.AddKey(Key.MouseRight);
         eventObserver.SetMouseDown(true);
       }
+    }
+
+    protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
+      Mouse.UpdateDirections(e);
     }
 
     protected override void OnLoad(EventArgs e)

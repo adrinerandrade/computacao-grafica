@@ -7,9 +7,10 @@ namespace gcgcg
   {
     public IState Perform(Command command, Mundo mundo)
     {
-      Console.Write(command.Equals(Command.NEW_POINT));
       if (command.Equals(Command.NEW_POINT)) {
         return new CreatingPolygonState(mundo);
+      } else if (command.Equals(Command.SELECT_VERTEX)) {
+        return new SelectPointPolygonSelectedState().Perform(command, mundo);
       }
       return this;
     }

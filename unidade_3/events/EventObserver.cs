@@ -86,7 +86,7 @@ namespace gcgcg
         {
             if (keys.Count > 0)
             {
-                ShowEmitedCapturedEvent();
+                // ShowEmitedCapturedEvent();
                 var command = Command.GetCommand(keys);
                 if (!command.Equals(Command.NONE)) {
                     this.state = state.Perform(command, this.mundo);

@@ -1,4 +1,5 @@
 using System;
+using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 
 namespace gcgcg
@@ -9,11 +10,9 @@ namespace gcgcg
     private Polygon polygon;
     public CreatingPolygonState(Mundo mundo) {
       this.mundo = mundo;
-      var mouse = OpenTK.Input.Mouse.GetState();
       this.polygon = new Polygon();
       this.polygon.points4D = new List<Ponto4D>{
-        new Ponto4D() { X = mouse.X, Y = mouse.Y },
-        new Ponto4D() { X = mouse.X, Y = mouse.Y }
+        new Ponto4D() { X = Mouse.X, Y = Mouse.Y }
       };
       mundo.AddPolygon(this.polygon);
     }
@@ -21,9 +20,10 @@ namespace gcgcg
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.NEW_POINT)) {
-        var mouse = OpenTK.Input.Mouse.GetState();
-        this.polygon.points4D.Add(new Ponto4D() { X = mouse.X, Y = mouse.Y });
+        this.polygon.points4D.Add(new Ponto4D() { X = Mouse.X, Y = Mouse.Y });
       } else if (command.Equals(Command.FINALIZE_POLYGON)) {
+        this.polygon.primitive = PrimitiveType.LineLoop;
+        this.mundo.polygonSelected = this.polygon;
         return new MainState();
       }
       return this;

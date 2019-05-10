@@ -34,14 +34,6 @@ namespace gcgcg
     public Mundo()
     {
       var polygon = new Polygon();
-      polygon.points4D = new List<Ponto4D>() {
-        new Ponto4D(300, 500),
-        new Ponto4D(100, 300),
-        new Ponto4D(200, 100),
-        new Ponto4D(300, 300)
-      };
-      polygons.Add(polygon);
-      polygonSelected = polygon;
       camera = new Camera(600, 600, this);
       camera.Run();
       camera.Run(1.0 / 60.0);
