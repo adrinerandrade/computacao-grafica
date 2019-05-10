@@ -63,17 +63,8 @@ namespace gcgcg
       GL.End();
     }
     private void CenterBboxCaculation() {
-      if (largerDistanceLeft.Value > 0) {
-        centerY =
-          largerDistanceTop.Value - ((largerDistanceTop.Value - largetDistanceBottom.Value) / 2);
-        centerX = 
-          largerDistanceRight.Value - ((largerDistanceRight.Value - largerDistanceLeft.Value) / 2);
-      } else {
-        centerY =
-          largerDistanceTop.Value - ((largerDistanceTop.Value + Math.Abs(largetDistanceBottom.Value)) / 2);
-        centerX = 
-          largerDistanceRight.Value - ((largerDistanceRight.Value + Math.Abs(largerDistanceLeft.Value)) / 2);
-      }
+      centerY = (largerDistanceTop.Value + largetDistanceBottom.Value) / 2;
+      centerX = (largerDistanceRight.Value + largerDistanceLeft.Value) / 2;
     }
   }
 

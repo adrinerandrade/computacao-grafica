@@ -19,6 +19,7 @@ namespace gcgcg
         private List<Key> keys = new List<Key>();
 
         private bool isMouseDown = false;
+        private Mundo mundo;
 
         /// <summary>
         /// Estado do teclado no momento do loop
@@ -30,6 +31,7 @@ namespace gcgcg
         /// </summary>
         public EventObserver(Mundo mundo)
         {
+            this.mundo = mundo;
             Thread t = new Thread(ObserverEvents);
             t.Start();
         }
@@ -93,6 +95,9 @@ namespace gcgcg
             {
                 foreach (var item in keys)
                 {
+                    if (item.Equals(Key.ControlLeft)) {
+                        mundo.polygonSelected.DropSelectedVertex();
+                    }
                     Console.WriteLine(item);
                 }
             }
@@ -134,6 +139,10 @@ namespace gcgcg
                     if (value.Equals(OpenTK.Input.Key.Space))
                     {
                         AddKey(Key.Space);
+                    }
+                    if (value.Equals(OpenTK.Input.Key.BackSlash) || value.Equals(OpenTK.Input.Key.Delete))
+                    {
+                        AddKey(Key.Delete);
                     }
                 }
             }

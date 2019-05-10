@@ -19,6 +19,8 @@ namespace gcgcg
     /// </summary>
     public Polygon polygonSelected { get; set; }
 
+    public Ponto4D pointSelected { get; set; }
+
     /// <summary>
     /// Informaçào se o poligono é filho de outro poligono
     /// </summary>
@@ -33,26 +35,14 @@ namespace gcgcg
     {
       var polygon = new Polygon();
       polygon.points4D = new List<Ponto4D>() {
-        new Ponto4D(100, 100),
-        new Ponto4D(-100, 100),
-        new Ponto4D(-100, 100),
-        new Ponto4D(0, -100),
-        new Ponto4D(0, -100),
-        new Ponto4D(100, 100)
+        new Ponto4D(300, 500),
+        new Ponto4D(100, 300),
+        new Ponto4D(200, 100),
+        new Ponto4D(300, 300)
       };
       polygons.Add(polygon);
-      var polygon2 = new Polygon();
-      polygon2.points4D = new List<Ponto4D>() {
-        new Ponto4D(-100, -100),
-        new Ponto4D(-300, -100),
-        new Ponto4D(-300, -100),
-        new Ponto4D(-200, -300),
-        new Ponto4D(-200, -300),
-        new Ponto4D(-100, -100)
-      };
-      polygons.Add(polygon2);
-      polygonSelected = polygon2;
-      camera = new Camera(400, 400, this);
+      polygonSelected = polygon;
+      camera = new Camera(600, 600, this);
       camera.Run();
       camera.Run(1.0 / 60.0);
     }
@@ -64,11 +54,21 @@ namespace gcgcg
         polygon.Draw();
         if (polygon == polygonSelected)
         {
-          if (polygon.Bbox == null) {
+          if (polygon.points4D.Count <= 1) {
+            polygonSelected = null;
+          }
+          if (polygon.Bbox == null)
+          {
             polygon.Bbox = new Bbox(polygon.points4D);
           }
           polygon.Bbox.Draw();
-        } else {
+          if (pointSelected != null)
+          {
+            polygon.SelectVertex(pointSelected);
+          }
+        }
+        else
+        {
           polygon.Bbox = null;
         }
       }

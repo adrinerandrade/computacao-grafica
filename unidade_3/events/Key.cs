@@ -14,6 +14,7 @@ namespace gcgcg
         ControlLeft,
         Space,
         MouseLeft,
-        MouseRight
+        MouseRight,
+        Delete
     }
 }

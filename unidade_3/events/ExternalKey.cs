@@ -23,6 +23,8 @@ namespace gcgcg
             OpenTK.Input.Key.R,
             OpenTK.Input.Key.G,
             OpenTK.Input.Key.A,
+            OpenTK.Input.Key.BackSpace,
+            OpenTK.Input.Key.Delete,
             OpenTK.Input.Key.ControlLeft,
             OpenTK.Input.Key.Space
         };
