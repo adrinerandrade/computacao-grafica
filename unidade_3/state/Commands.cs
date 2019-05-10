@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace gcgcg
 {
@@ -32,8 +33,11 @@ namespace gcgcg
     {
       foreach (var command in Values)
       {
-
+        if (Enumerable.SequenceEqual(keys, command.keys)) {
+          return command;
+        }
       }
+      return NONE;
     }
     private Key[] keys { get; }
     private Command(Key[] keys)

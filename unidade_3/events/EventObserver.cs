@@ -28,7 +28,7 @@ namespace gcgcg
         /// <summary>
         /// O Construtor inicia uma Thread que verifica o teclado
         /// </summary>
-        public EventObserver()
+        public EventObserver(Mundo mundo)
         {
             Thread t = new Thread(ObserverEvents);
             t.Start();

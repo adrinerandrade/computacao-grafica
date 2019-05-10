@@ -1,6 +1,6 @@
 namespace gcgcg
 {
-  internal class Ponto4D
+  public class Ponto4D
   {
     private double x;
     private double y;
