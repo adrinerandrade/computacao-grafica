@@ -47,6 +47,10 @@ namespace gcgcg
       camera.Run(1.0 / 60.0);
     }
 
+    public void AddPolygon(Polygon polygon) {
+      this.polygons.Add(polygon);
+    }
+    
     public void Draw()
     {
       foreach (var polygon in polygons)

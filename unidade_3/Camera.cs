@@ -20,6 +20,7 @@ namespace gcgcg
     /// </summary>
     /// <param name="width">Largura da tela</param>
     /// <param name="height">Altura da tela</param>
+    /// <param name="mundo">Mundo</param>
     /// <returns>Void</returns>
     public Camera(int width, int height, Mundo mundo) : base(width, height) {
       this.mundo = mundo;
