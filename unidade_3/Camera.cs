@@ -41,7 +41,12 @@ namespace gcgcg
         eventObserver.SetMouseDown(true);
       }
     }
-
+    protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e) {
+      if (eventObserver.keys.Count == 0) {
+        var command = Command.GetCommand(new List<Key>());
+        eventObserver.state = eventObserver.state.Perform(command, mundo);
+      }
+    }
     protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
       Mouse.UpdateDirections(e);
       if (eventObserver.state != null) {

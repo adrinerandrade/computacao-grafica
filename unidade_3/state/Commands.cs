@@ -13,6 +13,7 @@ namespace gcgcg
     public static readonly Command CHANGE_COLOR_RED = new Command(new Key[] { Key.R });
     public static readonly Command CHANGE_GREEN = new Command(new Key[] { Key.G });
     public static readonly Command CHANGE_BLUE = new Command(new Key[] { Key.A });
+    public static readonly Command MOUSE_MOVE = new Command(new Key[] { Key.MouseMove });
     public static readonly Command NONE = new Command(new Key[] { });
     private static IEnumerable<Command> Values
     {
@@ -26,6 +27,7 @@ namespace gcgcg
         yield return CHANGE_COLOR_RED;
         yield return CHANGE_GREEN;
         yield return CHANGE_BLUE;
+        yield return MOUSE_MOVE;
         yield return NONE;
       }
     }

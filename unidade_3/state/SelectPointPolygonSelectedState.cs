@@ -13,9 +13,19 @@ namespace gcgcg
         mundo.pointSelected = new Ponto4D() {
           X = Mouse.X, Y = Mouse.Y
         };
-        return new MainState();
+        return this;
+      } else if (command.Equals(Command.MOUSE_MOVE)) {
+        Ponto4D point4D = mundo.polygonSelected.pointSelected;
+        if (point4D != null) {
+          point4D.X = Mouse.X;
+          point4D.Y = Mouse.Y;
+        }
+        mundo.polygonSelected.Bbox = null;
+        return this;
+      } else {
+        mundo.pointSelected = null;
       }
-      return this;
+      return new MainState();
     }
   }
 }

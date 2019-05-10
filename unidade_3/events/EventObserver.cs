@@ -16,7 +16,7 @@ namespace gcgcg
         /// <summary>
         /// Lista de teclas clicadas no momento
         /// </summary>
-        private List<Key> keys = new List<Key>();
+        public List<Key> keys { get; set; } = new List<Key>();
 
         private bool isMouseDown = false;
         private Mundo mundo;
