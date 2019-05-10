@@ -8,7 +8,7 @@ namespace gcgcg
     public static readonly Command NEW_POINT = new Command(new Key[] { Key.B, Key.MouseRight });
     public static readonly Command FINALIZE_POLYGON = new Command(new Key[] { Key.Space });
     public static readonly Command SELECT_POLYGON = new Command(new Key[] { Key.B, Key.MouseLeft });
-    public static readonly Command SELECT_VERTEX = new Command(new Key[] { Key.MouseLeft });
+    public static readonly Command SELECT_VERTEX = new Command(new Key[] { Key.ControlLeft, Key.B, Key.MouseLeft });
     public static readonly Command CHANGE_PRIMITIVE = new Command(new Key[] { Key.P });
     public static readonly Command CHANGE_COLOR_RED = new Command(new Key[] { Key.R });
     public static readonly Command CHANGE_GREEN = new Command(new Key[] { Key.G });
