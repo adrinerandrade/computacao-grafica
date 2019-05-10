@@ -9,7 +9,6 @@ namespace gcgcg
   {
     public static double X { get; set; }
     public static double Y { get; set; }
-
     public static void UpdateDirections(OpenTK.Input.MouseMoveEventArgs e) {
       X = e.X;
       Y = 600 - e.Y;

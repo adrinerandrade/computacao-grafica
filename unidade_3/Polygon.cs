@@ -15,25 +15,27 @@ namespace gcgcg
     public List<Polygon> polygons { get; set; }
     public Color color { get; set; } = Color.Black;
     public Ponto4D pointSelected { get; set; }
+    public bool showTrail { get; set; } = false;
     public void SelectVertex(Ponto4D point)
     {
-        pointSelected = DistanceManhattan(point);
-        DrawSelectedVertx(pointSelected);
+      pointSelected = DistanceManhattan(point);
+      DrawSelectedVertx(pointSelected);
     }
-    public void DrawSelectedVertx(Ponto4D point) {
-      GL.Color3(Color.Yellow);
+    public void DrawSelectedVertx(Ponto4D point)
+    {
+      GL.Color3(Color.Red);
       GL.LineWidth(1);
       GL.PointSize(2);
       GL.Begin(PrimitiveType.Points);
-        double x, y, z;
-        double i;
-        for (i = 0; i <= 72; i ++)
-        {
-            x = point.X + (10*Math.Cos(i));
-            y = point.Y + (10*Math.Sin(i));
-            z = 0;
-            GL.Vertex3(x, y, z);
-        }
+      double x, y, z;
+      double i;
+      for (i = 0; i <= 72; i++)
+      {
+        x = point.X + (3 * Math.Cos(i));
+        y = point.Y + (3 * Math.Sin(i));
+        z = 0;
+        GL.Vertex3(x, y, z);
+      }
       GL.End();
     }
     public void Draw()
@@ -44,7 +46,19 @@ namespace gcgcg
       {
         GL.Vertex3(point.X, point.Y, point.Z);
       }
+      if (showTrail)
+      {
+        DrawTrail();
+      }
       DrawChildrens();
+      GL.End();
+    }
+    private void DrawTrail() {
+      Ponto4D point = points4D[points4D.Count - 1];
+      GL.Color3(Color.Black);
+      GL.Begin(PrimitiveType.Lines);
+        GL.Vertex3(point.X, point.Y, point.Z);
+        GL.Vertex3(Mouse.X, Mouse.Y, 0);
       GL.End();
     }
     private void DrawChildrens()
@@ -57,8 +71,10 @@ namespace gcgcg
         }
       }
     }
-    public void DropSelectedVertex() {
-      if (pointSelected != null) {
+    public void DropSelectedVertex()
+    {
+      if (pointSelected != null)
+      {
         points4D.Remove(pointSelected);
         pointSelected = null;
       }
@@ -72,7 +88,8 @@ namespace gcgcg
         double distanceX = point.X - point4D.X;
         double distanceY = point.Y - point4D.Y;
         double distanceManhattan = Math.Abs(distanceX) + Math.Abs(distanceY);
-        if (minValue > distanceManhattan) {
+        if (minValue > distanceManhattan)
+        {
           minValue = distanceManhattan;
           selectedPoint = point;
         }
