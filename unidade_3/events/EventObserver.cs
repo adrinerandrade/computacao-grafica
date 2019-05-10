@@ -100,9 +100,6 @@ namespace gcgcg
             {
                 foreach (var item in keys)
                 {
-                    if (item.Equals(Key.ControlLeft)) {
-                        mundo.polygonSelected.DropSelectedVertex();
-                    }
                     Console.WriteLine(item);
                 }
             }
