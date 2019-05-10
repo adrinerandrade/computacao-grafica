@@ -44,6 +44,12 @@ namespace gcgcg
 
     protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
       Mouse.UpdateDirections(e);
+      if (eventObserver.state != null) {
+        var command = Command.GetCommand(new List<Key>() {
+          Key.MouseMove
+        });
+        eventObserver.state = eventObserver.state.Perform(command, mundo);
+      }
     }
 
     protected override void OnLoad(EventArgs e)

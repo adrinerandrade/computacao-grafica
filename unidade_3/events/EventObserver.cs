@@ -20,7 +20,7 @@ namespace gcgcg
 
         private bool isMouseDown = false;
         private Mundo mundo;
-        private IState state = new MainState();
+        public IState state { get; set; } = new MainState();
 
         /// <summary>
         /// Estado do teclado no momento do loop

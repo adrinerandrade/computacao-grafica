@@ -13,8 +13,9 @@ namespace gcgcg
         A,
         ControlLeft,
         Space,
+        Delete,
         MouseLeft,
         MouseRight,
-        Delete
+        MouseMove
     }
 }
