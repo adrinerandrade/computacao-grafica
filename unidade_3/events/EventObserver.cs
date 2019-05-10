@@ -20,6 +20,7 @@ namespace gcgcg
 
         private bool isMouseDown = false;
         private Mundo mundo;
+        private IState state = new MainState();
 
         /// <summary>
         /// Estado do teclado no momento do loop
@@ -86,6 +87,10 @@ namespace gcgcg
             if (keys.Count > 0)
             {
                 ShowEmitedCapturedEvent();
+                var command = Command.GetCommand(keys);
+                if (!command.Equals(Command.NONE)) {
+                    this.state = state.Perform(command, this.mundo);
+                }
                 keys.Clear();
             }
         }

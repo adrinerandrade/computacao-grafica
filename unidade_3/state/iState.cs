@@ -4,6 +4,6 @@ namespace gcgcg
 {
   public interface IState
   {
-    IState Perform(List<Key> keys, Mundo mundo);
+    IState Perform(Command command, Mundo mundo);
   }
 }
