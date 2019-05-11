@@ -17,6 +17,12 @@ namespace gcgcg
         return new PointPolygonSelectedState().Perform(command, mundo);
       } else if (command.Equals(Command.CHANGE_PRIMITIVE)) {
         return new PrimitiveState().Perform(command, mundo);
+      } else if (
+        command.Equals(Command.CHANGE_BLUE) ||
+        command.Equals(Command.CHANGE_COLOR_RED) ||
+        command.Equals(Command.CHANGE_GREEN)
+      ) {
+        return new ColorState().Perform(command, mundo);
       }
       return this;
     }
