@@ -142,7 +142,11 @@ namespace gcgcg
                     {
                         AddKey(Key.Space);
                     }
-                    if (value.Equals(OpenTK.Input.Key.BackSlash) || value.Equals(OpenTK.Input.Key.Delete))
+                    if (
+                        value.Equals(OpenTK.Input.Key.BackSlash) ||
+                        value.Equals(OpenTK.Input.Key.Delete) ||
+                        value.Equals(OpenTK.Input.Key.Back)
+                    )
                     {
                         AddKey(Key.Delete);
                     }

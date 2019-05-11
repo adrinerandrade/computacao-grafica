@@ -7,8 +7,10 @@ namespace gcgcg
   {
     public static readonly Command NEW_POINT = new Command(new Key[] { Key.B, Key.MouseRight });
     public static readonly Command FINALIZE_POLYGON = new Command(new Key[] { Key.Space });
+    public static readonly Command DELETE_POLYGON = new Command(new Key[] { Key.Delete });
     public static readonly Command SELECT_POLYGON = new Command(new Key[] { Key.B, Key.MouseLeft });
     public static readonly Command SELECT_VERTEX = new Command(new Key[] { Key.ControlLeft, Key.B, Key.MouseLeft });
+    public static readonly Command DELETE_VERTEX = new Command(new Key[] { Key.ControlLeft, Key.Delete });
     public static readonly Command CHANGE_PRIMITIVE = new Command(new Key[] { Key.P });
     public static readonly Command CHANGE_COLOR_RED = new Command(new Key[] { Key.R });
     public static readonly Command CHANGE_GREEN = new Command(new Key[] { Key.G });
@@ -21,8 +23,10 @@ namespace gcgcg
       {
         yield return NEW_POINT;
         yield return FINALIZE_POLYGON;
+        yield return DELETE_POLYGON;
         yield return SELECT_POLYGON;
         yield return SELECT_VERTEX;
+        yield return DELETE_VERTEX;
         yield return CHANGE_PRIMITIVE;
         yield return CHANGE_COLOR_RED;
         yield return CHANGE_GREEN;
