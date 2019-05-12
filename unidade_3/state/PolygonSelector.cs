@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace gcgcg
@@ -45,7 +44,6 @@ namespace gcgcg
         {
             intersections++;
         }
-        Console.WriteLine(intersections);
       }
       return intersections % 2 == 1;
     }
