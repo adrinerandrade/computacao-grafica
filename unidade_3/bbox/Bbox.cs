@@ -16,9 +16,9 @@ namespace gcgcg
     public double centerX { get; set; }
     public double centerY {get; set; }
     public Bbox(List<Ponto4D> points) {
-      BBoxDimencions(points);
+      BBoxDimensions(points);
     }
-    private void BBoxDimencions(List<Ponto4D> points) {
+    private void BBoxDimensions(List<Ponto4D> points) {
       foreach (var point in points)
       {
         if (largerDistanceTop == null || largerDistanceTop < point.Y) {

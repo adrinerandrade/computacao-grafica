@@ -11,26 +11,30 @@ namespace gcgcg
   {
     private Mundo mundo;
     private Polygon polygon;
-    private Thread mouseShadowThread;
     public CreatingPolygonState(Mundo mundo) {
       this.mundo = mundo;
-      this.polygon = new Polygon() { showTrail = true };
-      this.polygon.points4D = new List<Ponto4D>{
+      this.mundo.polygonSelected = null;
+      this.polygon = new Polygon(new List<Ponto4D> {
+        new Ponto4D() { X = Mouse.X, Y = Mouse.Y },
         new Ponto4D() { X = Mouse.X, Y = Mouse.Y }
-      };
+      });
       mundo.AddPolygon(this.polygon);
     }
     public IState Perform(Command command, Mundo mundo)
     {
-      if (this.mouseShadowThread != null) {
-        this.mouseShadowThread.Abort();
-      }
       if (command.Equals(Command.NEW_POINT)) {
-        this.polygon.points4D.Add(new Ponto4D() { X = Mouse.X, Y = Mouse.Y });
+        this.polygon.AddVertex(new Ponto4D() { X = Mouse.X, Y = Mouse.Y });
+      }else if (command.Equals(Command.MOUSE_MOVE)) {
+        this.polygon.UpdateVertexLocation(this.polygon.VertexCount() - 1, Mouse.X, Mouse.Y);
       } else if (command.Equals(Command.FINALIZE_POLYGON)) {
-        this.polygon.primitive = PrimitiveType.LineLoop;
-        this.mundo.polygonSelected = this.polygon;
-        this.polygon.showTrail = false;
+        this.polygon.RemoveVertex(this.polygon.VertexCount() - 1);
+        if (this.polygon.VertexCount() < 2) {
+          Console.WriteLine("Não adicionado");
+          this.mundo.polygons.Remove(this.polygon);
+        } else {
+          this.polygon.primitive = PrimitiveType.LineLoop;
+          this.mundo.polygonSelected = this.polygon;  
+        }
         return new MainState();
       }
       return this;

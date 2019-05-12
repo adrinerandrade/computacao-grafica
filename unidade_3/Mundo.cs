@@ -19,13 +19,6 @@ namespace gcgcg
     /// </summary>
     public Polygon polygonSelected { get; set; }
 
-    public Ponto4D pointSelected { get; set; }
-
-    /// <summary>
-    /// Informaçào se o poligono é filho de outro poligono
-    /// </summary>
-    private bool isChildren;
-
     /// <summary>
     /// Instancia da camera
     /// </summary>
@@ -33,7 +26,6 @@ namespace gcgcg
 
     public Mundo()
     {
-      var polygon = new Polygon();
       camera = new Camera(600, 600, this);
       camera.Run();
       camera.Run(1.0 / 60.0);
@@ -48,25 +40,9 @@ namespace gcgcg
       foreach (var polygon in polygons)
       {
         polygon.Draw();
-        if (polygon == polygonSelected)
-        {
-          if (polygon.points4D.Count <= 1) {
-            polygonSelected = null;
-          }
-          if (polygon.Bbox == null)
-          {
-            polygon.Bbox = new Bbox(polygon.points4D);
-          }
-          polygon.Bbox.Draw();
-          if (pointSelected != null)
-          {
-            polygon.SelectVertex(pointSelected);
-          }
-        }
-        else
-        {
-          polygon.Bbox = null;
-        }
+      }
+      if (polygonSelected != null) {
+        polygonSelected.DrawBBox();
       }
     }
 
