@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace gcgcg
@@ -26,8 +27,9 @@ namespace gcgcg
     {
       points.Add(points[0]);
       var intersections = 0;
-      for (var i = 0; i < points.Count - 2; i++)
+      for (var i = 0; i < points.Count - 1; i++)
       {
+        
         var pointOrigin = points[i];
         if (pointOrigin.X == X && pointOrigin.Y == Y)
         {
@@ -43,6 +45,7 @@ namespace gcgcg
         {
             intersections++;
         }
+        Console.WriteLine(intersections);
       }
       return intersections % 2 == 1;
     }
