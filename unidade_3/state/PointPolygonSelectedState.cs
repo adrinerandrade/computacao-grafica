@@ -7,30 +7,47 @@ namespace gcgcg
 {
   public class PointPolygonSelectedState : IState
   {
+    private bool canMove = false;
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.SELECT_VERTEX))
       {
         mundo.polygonSelected.SelectNearestVertex(Mouse.X, Mouse.Y);
-        return this;
+      } 
+      else if (command.Equals(Command.MOVE))
+      {
+        canMove = !canMove;
+        if (canMove)
+        {
+          UpdateSelectedVertex(mundo);
+        }
       }
       else if (command.Equals(Command.MOUSE_MOVE))
       {
-        UpdateVertex(mundo);
-        return this;
+        if (canMove)
+        {
+          UpdateSelectedVertex(mundo);
+        }
       }
-      else if (command.Equals(Command.DELETE_VERTEX))
+      else if (command.Equals(Command.DELETE))
       {
-        DeleteVertex(mundo);
+        RemoveSelectedVertex(mundo);
+        return new MainState();
       }
-      return new MainState();
+      else if (command.Equals(Command.ESCAPE)) {
+        mundo.polygonSelected.DeselectVertex();
+        return new MainState();
+      }
+      return this;
     }
-    private void DeleteVertex(Mundo mundo)
+
+    private static void RemoveSelectedVertex(Mundo mundo)
     {
       var selectedVertex = mundo.polygonSelected.GetSelectedVertex();
       mundo.polygonSelected.RemoveVertex(selectedVertex);
     }
-    private void UpdateVertex(Mundo mundo)
+
+    private static void UpdateSelectedVertex(Mundo mundo)
     {
       var selectedVertex = mundo.polygonSelected.GetSelectedVertex();
       mundo.polygonSelected.UpdateVertexLocation(selectedVertex, Mouse.X, Mouse.Y);

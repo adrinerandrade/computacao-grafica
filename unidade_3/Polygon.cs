@@ -38,7 +38,7 @@ namespace gcgcg
       points4D.Remove(this.points4D[index]);
       if (this.selectedPoint == index)
       {
-        this.selectedPoint = -1;
+        this.DeselectVertex();
       }
       this.UpdateBBox();
     }
@@ -48,6 +48,10 @@ namespace gcgcg
     public void SelectNearestVertex(double X, double Y)
     {
       this.selectedPoint = DistanceManhattan(new Ponto4D() { X = X, Y = Y});
+    }
+    public void DeselectVertex()
+    {
+      this.selectedPoint = -1;
     }
     public int GetSelectedVertex()
     {

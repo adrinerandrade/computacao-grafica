@@ -8,7 +8,7 @@ namespace gcgcg
   {
     public IState Perform(Command command, Mundo mundo)
     {
-      if (command.Equals(Command.DELETE_POLYGON)) {
+      if (command.Equals(Command.DELETE)) {
         mundo.polygons.Remove(mundo.polygonSelected);
         if (mundo.polygons.Count > 0) {
           mundo.polygonSelected = mundo.polygons[mundo.polygons.Count - 1];

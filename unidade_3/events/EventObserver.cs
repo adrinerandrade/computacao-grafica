@@ -134,6 +134,10 @@ namespace gcgcg
                     {
                         AddKey(Key.A);
                     }
+                    if (value.Equals(OpenTK.Input.Key.M))
+                    {
+                        AddKey(Key.M);
+                    }
                     if (value.Equals(OpenTK.Input.Key.ControlLeft))
                     {
                         AddKey(Key.ControlLeft);
@@ -141,6 +145,10 @@ namespace gcgcg
                     if (value.Equals(OpenTK.Input.Key.Space))
                     {
                         AddKey(Key.Space);
+                    }
+                     if (value.Equals(OpenTK.Input.Key.Escape))
+                    {
+                        AddKey(Key.Escape);
                     }
                     if (
                         value.Equals(OpenTK.Input.Key.BackSlash) ||

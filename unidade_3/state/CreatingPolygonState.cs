@@ -29,7 +29,6 @@ namespace gcgcg
       } else if (command.Equals(Command.FINALIZE_POLYGON)) {
         this.polygon.RemoveVertex(this.polygon.VertexCount() - 1);
         if (this.polygon.VertexCount() < 2) {
-          Console.WriteLine("Não adicionado");
           this.mundo.polygons.Remove(this.polygon);
         } else {
           this.polygon.primitive = PrimitiveType.LineLoop;
