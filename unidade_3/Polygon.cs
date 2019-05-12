@@ -57,6 +57,20 @@ namespace gcgcg
     {
       return selectedPoint;
     }
+    public Bbox GetBBox()
+    {
+      return this.Bbox.Clone();
+    }
+    public List<Ponto4D> GetPoints()
+    {
+      return this.points4D.ConvertAll(point => new Ponto4D() { X = point.X, Y = point.Y });
+    }
+    public void UpdatePoints(List<Ponto4D> points)
+    {
+      this.points4D = points;
+      this.DeselectVertex();
+      this.UpdateBBox();
+    }
     public void Draw()
     {
       GL.Color3(color);

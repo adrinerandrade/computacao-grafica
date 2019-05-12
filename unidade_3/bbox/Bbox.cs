@@ -15,6 +15,7 @@ namespace gcgcg
 
     public double centerX { get; set; }
     public double centerY {get; set; }
+    private Bbox() {}
     public Bbox(List<Ponto4D> points) {
       BBoxDimensions(points);
     }
@@ -34,6 +35,17 @@ namespace gcgcg
           largerDistanceRight = point.X;
         }
       }
+    }
+    public Bbox Clone()
+    {
+      var bBox = new Bbox();
+      bBox.centerX = this.centerX;
+      bBox.centerY = this.centerY;
+      bBox.largerDistanceLeft = this.largerDistanceLeft;
+      bBox.largerDistanceRight = this.largerDistanceRight;
+      bBox.largerDistanceTop = this.largerDistanceTop;
+      bBox.largetDistanceBottom = this.largetDistanceBottom;
+      return bBox;
     }
     public void Draw() {
       GL.Color3(Color.Yellow);

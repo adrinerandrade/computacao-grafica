@@ -9,6 +9,12 @@ namespace gcgcg
     {
       if (command.Equals(Command.ESCAPE)) {
         mundo.polygonSelected = null;
+      } else if (command.Equals(Command.SELECT_POLYGON)) {
+        var selectedPolygon = PolygonSelector.GetSelected(mundo.polygons, Mouse.X, Mouse.Y);
+        if (selectedPolygon != null)
+        {
+          mundo.polygonSelected = selectedPolygon;
+        }
       } else if (command.Equals(Command.NEW_POINT)) {
         return new CreatingPolygonState(mundo);
       } else if (command.Equals(Command.SELECT_VERTEX)) {
