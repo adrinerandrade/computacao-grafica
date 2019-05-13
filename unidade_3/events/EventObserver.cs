@@ -102,6 +102,7 @@ namespace gcgcg
                 {
                     Console.WriteLine(item);
                 }
+                Console.WriteLine();
             }
         }
 

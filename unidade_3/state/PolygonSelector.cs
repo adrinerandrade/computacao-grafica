@@ -28,7 +28,6 @@ namespace gcgcg
       var intersections = 0;
       for (var i = 0; i < points.Count - 1; i++)
       {
-        
         var pointOrigin = points[i];
         if (pointOrigin.X == X && pointOrigin.Y == Y)
         {
