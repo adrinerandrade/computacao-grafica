@@ -12,6 +12,8 @@ namespace gcgcg
         G,
         A,
         M,
+        S,
+        N,
         ControlLeft,
         Space,
         Escape,

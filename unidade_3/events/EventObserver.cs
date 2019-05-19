@@ -139,6 +139,14 @@ namespace gcgcg
                     {
                         AddKey(Key.M);
                     }
+                    if (value.Equals(OpenTK.Input.Key.S))
+                    {
+                        AddKey(Key.S);
+                    }
+                    if (value.Equals(OpenTK.Input.Key.N))
+                    {
+                        AddKey(Key.N);
+                    }
                     if (value.Equals(OpenTK.Input.Key.ControlLeft))
                     {
                         AddKey(Key.ControlLeft);

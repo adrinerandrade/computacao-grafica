@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace gcgcg
@@ -16,7 +15,9 @@ namespace gcgcg
           mundo.polygonSelected = selectedPolygon;
         }
       } else if (command.Equals(Command.MOVE)) {
-        return new MovePolygonState();
+        return new TranslatePolygonState();
+      } else if (command.Equals(Command.SCALE)) {
+        return new ScalePolygonState();
       } else if (command.Equals(Command.NEW_POINT)) {
         return new CreatingPolygonState(mundo);
       } else if (command.Equals(Command.SELECT_VERTEX)) {

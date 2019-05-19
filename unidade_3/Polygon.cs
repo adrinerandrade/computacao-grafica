@@ -52,6 +52,36 @@ namespace gcgcg
       this.transformacao.atribuirTranslacao(translX, translY, 0);
       this.UpdateBBox();
     }
+    public void Scale(double scale)
+    {
+      var translX = this.Bbox.centerX;
+      var translY = this.Bbox.centerY;
+      
+      var originTrans = new Transformacao4D();
+      originTrans.atribuirTranslacao(-translX, -translY, 0);
+
+      var scaleTrans = new Transformacao4D();
+      scaleTrans.atribuirEscala(scale, scale, 1);
+
+      var result = originTrans.transformMatrix(scaleTrans);
+
+      this.transformacao.SetElement(0, 1);
+      this.transformacao.SetElement(5, 1);
+      this.transformacao.SetElement(10, 1);
+      result = this.transformacao.transformMatrix(result);
+
+      var originalTrans = new Transformacao4D();
+      var originalPosition = new Bbox(this.points4D);
+      originalTrans.atribuirTranslacao(originalPosition.centerX, originalPosition.centerY, 0);
+      result = result.transformMatrix(originalTrans);
+
+      this.transformacao = result;
+      this.transformacao.exibeMatriz();
+      this.UpdateBBox();
+    }
+    public void Rotate(double degree)
+    {
+    }
     public void RemoveVertex(int index)
     {
       points4D.Remove(this.points4D[index]);
