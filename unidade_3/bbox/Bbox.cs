@@ -19,7 +19,11 @@ namespace gcgcg
     public Bbox(List<Ponto4D> points) {
       BBoxDimensions(points);
     }
-    private void BBoxDimensions(List<Ponto4D> points) {
+    public void BBoxDimensions(List<Ponto4D> points) {
+      this.largerDistanceTop = null;
+      this.largetDistanceBottom = null;
+      this.largerDistanceLeft = null;
+      this.largerDistanceRight = null;
       foreach (var point in points)
       {
         if (largerDistanceTop == null || largerDistanceTop < point.Y) {
@@ -35,6 +39,8 @@ namespace gcgcg
           largerDistanceRight = point.X;
         }
       }
+      centerY = (largerDistanceTop.Value + largetDistanceBottom.Value) / 2;
+      centerX = (largerDistanceRight.Value + largerDistanceLeft.Value) / 2;
     }
     public Bbox Clone()
     {
@@ -65,7 +71,6 @@ namespace gcgcg
       CursorShow();
     }
     private void CursorShow() {
-      CenterBboxCaculation();
       GL.Color3(Color.Red);
       GL.Begin(PrimitiveType.Lines);
         GL.Vertex3(centerX, centerY + 10, 0);
@@ -73,10 +78,6 @@ namespace gcgcg
         GL.Vertex3(centerX + 10, centerY, 0);
         GL.Vertex3(centerX - 10, centerY, 0);
       GL.End();
-    }
-    private void CenterBboxCaculation() {
-      centerY = (largerDistanceTop.Value + largetDistanceBottom.Value) / 2;
-      centerX = (largerDistanceRight.Value + largerDistanceLeft.Value) / 2;
     }
   }
 

@@ -15,11 +15,14 @@ namespace gcgcg
     public PrimitiveType primitive { get; set; } = PrimitiveType.LineStrip;
     public List<Polygon> polygons { get; set; }
     public Color color { get; set; } = Color.Blue;
+
+    private Transformacao4D transformacao = new Transformacao4D();
     
     public Polygon(List<Ponto4D> points4D)
     {
       this.points4D = points4D;
-      this.UpdateBBox();
+      this.transformacao.atribuirIdentidade();
+      this.Bbox = new Bbox(points4D);
     }
     public void AddVertex(Ponto4D point)
     {
@@ -29,8 +32,24 @@ namespace gcgcg
     public void UpdateVertexLocation(int index, double X, double Y)
     {
       var point = this.points4D[index];
-      point.X = X;
-      point.Y = Y;
+      var result = this.GetDesloc(point, new Ponto4D() { X = X, Y = Y });
+      point.X = result.X;
+      point.Y = result.Y;
+      this.UpdateBBox();
+    }
+    private Ponto4D GetDesloc(Ponto4D sourcePoint, Ponto4D targetPoint) {
+      var transformedPoint = this.transformacao.transformPoint(sourcePoint);
+      var result = new Ponto4D();
+      result.X = sourcePoint.X + targetPoint.X - transformedPoint.X;
+      result.Y = sourcePoint.Y + targetPoint.Y - transformedPoint.Y;
+      return result;
+    }
+    public void Translation(double targetX, double targetY)
+    {
+      var originBbox = new Bbox(this.points4D);
+      var translX = targetX - originBbox.centerX;
+      var translY = targetY - originBbox.centerY;
+      this.transformacao.atribuirTranslacao(translX, translY, 0);
       this.UpdateBBox();
     }
     public void RemoveVertex(int index)
@@ -61,18 +80,18 @@ namespace gcgcg
     {
       return this.Bbox.Clone();
     }
-    public List<Ponto4D> GetPoints()
+    public List<Ponto4D> GetTransformedPoints()
     {
-      return this.points4D.ConvertAll(point => new Ponto4D() { X = point.X, Y = point.Y });
-    }
-    public void UpdatePoints(List<Ponto4D> points)
-    {
-      this.points4D = points;
-      this.DeselectVertex();
-      this.UpdateBBox();
+      // TODO: DEVERIA SALVAR QUEM NO POLIGNO QUEM É PAI, PARA FAZER O CÁLCULO DE TODAS AS TRANSFORMAÇÕES?
+      // ISSO POIS PARA CALCULAR A DISTÂNCIA, OU ENTÃO SE O CLIQUE FOI DENTRO OU NÃO EU PRECISARIA DESSA INFORMAÇÃO.
+      // MAS ENTÃO IRIA CONTRA O PRINCÍPIO DO OPENTK DE TER UMA MATRIZ.
+      return this.points4D.ConvertAll(point => this.transformacao.transformPoint(point));
     }
     public void Draw()
     {
+      GL.PushMatrix();
+      GL.LoadMatrix(transformacao.GetDate());
+
       GL.Color3(color);
       GL.Begin(primitive);
       foreach (var point in points4D)
@@ -84,6 +103,8 @@ namespace gcgcg
       if (this.selectedPoint > -1) {
         DrawSelectedVertex(this.points4D[this.selectedPoint]);
       }
+
+      GL.PopMatrix();
     }
     private void DrawChildrens()
     {
@@ -120,9 +141,10 @@ namespace gcgcg
     {
       int selectedPoint = -1;
       double minValue = Double.MaxValue;
-      for (var i = 0; i < this.points4D.Count; i++)
+      var points = this.GetTransformedPoints();
+      for (var i = 0; i < points.Count; i++)
       {
-        var point = this.points4D[i];
+        var point = points[i];
         double distanceX = point.X - point4D.X;
         double distanceY = point.Y - point4D.Y;
         double distanceManhattan = Math.Abs(distanceX) + Math.Abs(distanceY);
@@ -136,7 +158,7 @@ namespace gcgcg
     }
     private void UpdateBBox()
     {
-      this.Bbox = new Bbox(this.points4D);
+      this.Bbox.BBoxDimensions(this.GetTransformedPoints());
     }
   }
 }

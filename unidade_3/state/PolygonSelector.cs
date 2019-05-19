@@ -14,7 +14,7 @@ namespace gcgcg
           X <= bBox.largerDistanceRight &&
           Y >= bBox.largetDistanceBottom &&
           Y <= bBox.largerDistanceTop &&
-          WasClickedInside(polygon.GetPoints(), X, Y)
+          WasClickedInside(polygon.GetTransformedPoints(), X, Y)
         )
         {
           return polygon;
