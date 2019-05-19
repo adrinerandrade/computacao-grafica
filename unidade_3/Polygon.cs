@@ -71,8 +71,7 @@ namespace gcgcg
       result = this.transformacao.transformMatrix(result);
 
       var originalTrans = new Transformacao4D();
-      var originalPosition = new Bbox(this.points4D);
-      originalTrans.atribuirTranslacao(originalPosition.centerX, originalPosition.centerY, 0);
+      originalTrans.atribuirTranslacao(translX, translY, 0);
       result = result.transformMatrix(originalTrans);
 
       this.transformacao = result;
