@@ -68,9 +68,9 @@ namespace gcgcg
 
       var result = originTrans.transformMatrix(scaleTrans);
       result = result.transformMatrix(initialPositionTrans);
-      result.exibeMatriz();
 
       this.transformacao = this.transformacao.transformMatrix(result);
+      this.transformacao.exibeMatriz();
       this.UpdateBBox();
     }
     public void Rotate(double degree)
