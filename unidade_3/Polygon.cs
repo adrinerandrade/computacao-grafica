@@ -58,24 +58,19 @@ namespace gcgcg
       var translY = this.Bbox.centerY;
       
       var originTrans = new Transformacao4D();
-      originTrans.atribuirTranslacao(-translX, -translY, 0);
+      originTrans.atribuirTranslacao(translX, translY, 0);
 
       var scaleTrans = new Transformacao4D();
       scaleTrans.atribuirEscala(scale, scale, 1);
 
+      var initialPositionTrans = new Transformacao4D();
+      initialPositionTrans.atribuirTranslacao(-translX, -translY, 0);
+
       var result = originTrans.transformMatrix(scaleTrans);
+      result = result.transformMatrix(initialPositionTrans);
+      result.exibeMatriz();
 
-      this.transformacao.SetElement(0, 1);
-      this.transformacao.SetElement(5, 1);
-      this.transformacao.SetElement(10, 1);
-      result = this.transformacao.transformMatrix(result);
-
-      var originalTrans = new Transformacao4D();
-      originalTrans.atribuirTranslacao(translX, translY, 0);
-      result = result.transformMatrix(originalTrans);
-
-      this.transformacao = result;
-      this.transformacao.exibeMatriz();
+      this.transformacao = this.transformacao.transformMatrix(result);
       this.UpdateBBox();
     }
     public void Rotate(double degree)
