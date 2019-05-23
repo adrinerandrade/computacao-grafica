@@ -4,11 +4,14 @@ namespace gcgcg
 {
   public class ScalePolygonState : IState
   {
-    private double initialX;
-    private double initialY;
+    private double lastMouseY;
+    private double plusScaleFactor;
+    private double minusScaleFactor;
     public ScalePolygonState()
     {
-      this.initialY = Mouse.Y - 100;
+      this.plusScaleFactor = 1.02;
+      this.minusScaleFactor = 1 / this.plusScaleFactor ;
+      this.lastMouseY = Mouse.Y - 100;
     }
     public IState Perform(Command command, Mundo mundo)
     {
@@ -26,8 +29,9 @@ namespace gcgcg
       return this;
     }
     private double getScale() {
-      var diff = (Mouse.Y - this.initialY) / 100;
-      return diff < 0 ? 0 : diff;
+      var scaleFactor = (Mouse.Y < this.lastMouseY ? this.minusScaleFactor : (Mouse.Y > this.lastMouseY ? this.plusScaleFactor : 1));
+      this.lastMouseY = Mouse.Y;
+      return scaleFactor;
     }
   }
 }

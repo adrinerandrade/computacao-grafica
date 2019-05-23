@@ -54,6 +54,7 @@ namespace gcgcg
     }
     public void Scale(double scale)
     {
+      Console.Write(scale);
       var translX = this.Bbox.centerX;
       var translY = this.Bbox.centerY;
       
