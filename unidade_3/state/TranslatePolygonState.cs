@@ -2,6 +2,12 @@ namespace gcgcg
 {
   class TranslatePolygonState : IState
   {
+    public TranslatePolygonState(Mundo mundo)
+    {
+      if (mundo.polygonSelected != null) {
+        mundo.polygonSelected.Translation(Mouse.X, Mouse.Y);
+      }
+    }
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.MOUSE_MOVE)) {
