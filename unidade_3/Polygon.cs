@@ -54,7 +54,6 @@ namespace gcgcg
     }
     public void Scale(double scale)
     {
-      Console.Write(scale);
       var translX = this.Bbox.centerX;
       var translY = this.Bbox.centerY;
       
@@ -70,12 +69,30 @@ namespace gcgcg
       var result = originTrans.transformMatrix(scaleTrans);
       result = result.transformMatrix(initialPositionTrans);
 
-      this.transformacao = this.transformacao.transformMatrix(result);
-      this.transformacao.exibeMatriz();
+      this.transformacao = result.transformMatrix(this.transformacao);
       this.UpdateBBox();
     }
-    public void Rotate(double degree)
+    public void Rotate(double degreeFactor)
     {
+      Console.WriteLine(degreeFactor * 10);
+      var translX = this.Bbox.centerX;
+      var translY = this.Bbox.centerY;
+
+      var originTrans = new Transformacao4D();
+      originTrans.atribuirTranslacao(translX, translY, 0);
+
+      var rotationTrans = new Transformacao4D();
+      rotationTrans.atribuirRotacaoZ(Transformacao4D.DEG_TO_RAD * degreeFactor);
+
+      var initialPositionTrans = new Transformacao4D();
+      initialPositionTrans.atribuirTranslacao(-translX, -translY, 0);
+
+      var result = originTrans.transformMatrix(rotationTrans);
+      result = result.transformMatrix(initialPositionTrans);
+
+      this.transformacao = result.transformMatrix(this.transformacao);
+      this.transformacao.exibeMatriz();
+      this.UpdateBBox();
     }
     public void RemoveVertex(int index)
     {

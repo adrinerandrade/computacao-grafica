@@ -18,6 +18,8 @@ namespace gcgcg
         return new TranslatePolygonState(mundo);
       } else if (command.Equals(Command.SCALE)) {
         return new ScalePolygonState();
+      } else if (command.Equals(Command.ROTATE)) {
+        return new RotatePolygonState();
       } else if (command.Equals(Command.NEW_POINT)) {
         return new CreatingPolygonState(mundo);
       } else if (command.Equals(Command.SELECT_VERTEX)) {
