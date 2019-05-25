@@ -25,6 +25,7 @@ namespace gcgcg
     public Camera(int width, int height, Mundo mundo) : base(width, height) {
       this.mundo = mundo;
       this.eventObserver = new EventObserver(this.mundo);
+      new EventHandler(this.mundo);
     }
 
     /// <summary>
@@ -43,16 +44,12 @@ namespace gcgcg
     }
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e) {
       if (eventObserver.keys.Count == 0) {
-        var command = Command.GetCommand(new List<Key>());
-        eventObserver.state = eventObserver.state.Perform(command, mundo);
+        EventHandler.keys.Enqueue(new List<Key>());
       }
     }
     protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
-      Mouse.UpdateDirections(e);
-      if (eventObserver.state != null) {
-        var command = Command.GetCommand(new List<Key>() { Key.MouseMove });
-        eventObserver.state = eventObserver.state.Perform(command, mundo);
-      }
+      Mouse.UpdateDirections(e.X, e.Y);
+      EventHandler.MouseMuve.Enqueue(new List<Key>() {Key.MouseMove});
     }
 
     protected override void OnLoad(EventArgs e)

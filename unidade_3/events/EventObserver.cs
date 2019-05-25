@@ -14,13 +14,19 @@ namespace gcgcg
     public class EventObserver
     {
         /// <summary>
-        /// Lista de teclas clicadas no momento
+        /// Lista de teclas a serem processadas nesta instancia.
         /// </summary>
         public List<Key> keys { get; set; } = new List<Key>();
 
+        /// <summary>
+        /// Variável que controla se o mouse foi clicado.
+        /// </summary>
         private bool isMouseDown = false;
+        
+        /// <summary>
+        ///  Instancia do mundo do OPENTL
+        /// </summary>
         private Mundo mundo;
-        public IState state { get; set; } = new MainState();
 
         /// <summary>
         /// Estado do teclado no momento do loop
@@ -28,7 +34,7 @@ namespace gcgcg
         private OpenTK.Input.KeyboardState keyboardState;
 
         /// <summary>
-        /// O Construtor inicia uma Thread que verifica o teclado
+        /// O Construtor inicia uma Thread do que será empilhado como comando
         /// </summary>
         public EventObserver(Mundo mundo)
         {
@@ -68,6 +74,9 @@ namespace gcgcg
             }
         }
 
+        /// <summary>
+        /// Bloqueia a thread até solte as teclas ou clique com o mouse.
+        /// </summary>
         private void EventBlock() {
             while (true) {
                 if (!IsAnyKeyDown()) {
@@ -86,23 +95,10 @@ namespace gcgcg
         {
             if (keys.Count > 0)
             {
-                // ShowEmitedCapturedEvent();
-                var command = Command.GetCommand(keys);
-                if (!command.Equals(Command.NONE)) {
-                    this.state = state.Perform(command, this.mundo);
-                }
+                List<Key> k = new List<Key>();
+                k.AddRange(keys);
                 keys.Clear();
-            }
-        }
-
-        private void ShowEmitedCapturedEvent() {
-            if (keys.Count > 0)
-            {
-                foreach (var item in keys)
-                {
-                    Console.WriteLine(item);
-                }
-                Console.WriteLine();
+                EventHandler.keys.Enqueue(k);
             }
         }
 
@@ -190,7 +186,9 @@ namespace gcgcg
         {
             return OpenTK.Input.Keyboard.GetState().IsAnyKeyDown;
         }
-
+        /// <summary>
+        /// Evento capturado pelo mouse.
+        /// </summary>
         public void SetMouseDown(bool isMouseDown) {
             this.isMouseDown = isMouseDown;
         }
