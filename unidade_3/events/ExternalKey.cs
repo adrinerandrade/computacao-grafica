@@ -26,6 +26,7 @@ namespace gcgcg
             OpenTK.Input.Key.M,
             OpenTK.Input.Key.S,
             OpenTK.Input.Key.N,
+            OpenTK.Input.Key.F,
             OpenTK.Input.Key.BackSpace,
             OpenTK.Input.Key.Delete,
             OpenTK.Input.Key.Back,

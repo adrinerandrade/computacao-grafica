@@ -19,6 +19,10 @@ namespace gcgcg
         {
           return polygon;
         }
+        var selectedChild = PolygonSelector.GetSelected(polygon.children, X, Y);
+        if (selectedChild != null) {
+          return selectedChild;
+        }
       }
       return null;
     }

@@ -8,9 +8,10 @@ namespace gcgcg
     private double initialY;
     private double lastAngle;
     private double rotationFactor = 1;
-    public RotatePolygonState() {
-      this.initialX = Mouse.X;
-      this.initialY = Mouse.Y;
+    public RotatePolygonState(Mundo mundo) {
+      var bbox = mundo.polygonSelected.GetBBox();
+      this.initialX = bbox.centerX;
+      this.initialY = bbox.centerY;
       this.lastAngle = 0;
     }
     public IState Perform(Command command, Mundo mundo)
@@ -32,20 +33,12 @@ namespace gcgcg
       var dX = Mouse.X - this.initialX;
       var dY = -(Mouse.Y - this.initialY);
 
-      var inRads = Math.Atan2(dY, dX);;
-      if (inRads > 0)
-      {
-        inRads = inRads;
-      } else
-      {
-        inRads = 2 * Math.PI - inRads;
-      }
-      var angle = inRads;
-      // Console.WriteLine((inRads > 0 ? inRads : (2* Math.PI + inRads)) * 360 / (2* Math.PI));
-      
-      var radiusFactor = (angle < this.lastAngle ? -this.rotationFactor : (angle > this.lastAngle ? this.rotationFactor : 0));
+      var radian = Math.Atan2(dY, dX);
+      var angle = 180 + radian * (180 / Math.PI);
+
+      var result = angle > this.lastAngle ? -1 : (angle < this.lastAngle ? 1 : 0);
       this.lastAngle = angle;
-      return radiusFactor;
+      return result;
     }
   }
 }

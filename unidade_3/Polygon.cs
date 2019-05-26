@@ -13,7 +13,7 @@ namespace gcgcg
     private int selectedPoint = -1;
     private Bbox Bbox;
     public PrimitiveType primitive { get; set; } = PrimitiveType.LineStrip;
-    public List<Polygon> polygons { get; set; }
+    public List<Polygon> children { get; set; } = new List<Polygon>();
     public Color color { get; set; } = Color.Blue;
 
     private Transformacao4D transformacao = new Transformacao4D();
@@ -44,12 +44,12 @@ namespace gcgcg
       result.Y = sourcePoint.Y + targetPoint.Y - transformedPoint.Y;
       return result;
     }
-    public void Translation(double targetX, double targetY)
+    public void Translation(double translX, double translY)
     {
-      var originBbox = new Bbox(this.points4D);
-      var translX = targetX - originBbox.centerX;
-      var translY = targetY - originBbox.centerY;
-      this.transformacao.atribuirTranslacao(translX, translY, 0);
+      var transl = new Transformacao4D();
+      transl.atribuirTranslacao(translX, translY, 0);
+
+      this.transformacao = transl.transformMatrix(this.transformacao);
       this.UpdateBBox();
     }
     public void Scale(double scale)
@@ -74,7 +74,6 @@ namespace gcgcg
     }
     public void Rotate(double degreeFactor)
     {
-      Console.WriteLine(degreeFactor * 10);
       var translX = this.Bbox.centerX;
       var translY = this.Bbox.centerY;
 
@@ -91,7 +90,6 @@ namespace gcgcg
       result = result.transformMatrix(initialPositionTrans);
 
       this.transformacao = result.transformMatrix(this.transformacao);
-      this.transformacao.exibeMatriz();
       this.UpdateBBox();
     }
     public void RemoveVertex(int index)
@@ -124,15 +122,12 @@ namespace gcgcg
     }
     public List<Ponto4D> GetTransformedPoints()
     {
-      // TODO: DEVERIA SALVAR QUEM NO POLIGNO QUEM É PAI, PARA FAZER O CÁLCULO DE TODAS AS TRANSFORMAÇÕES?
-      // ISSO POIS PARA CALCULAR A DISTÂNCIA, OU ENTÃO SE O CLIQUE FOI DENTRO OU NÃO EU PRECISARIA DESSA INFORMAÇÃO.
-      // MAS ENTÃO IRIA CONTRA O PRINCÍPIO DO OPENTK DE TER UMA MATRIZ.
       return this.points4D.ConvertAll(point => this.transformacao.transformPoint(point));
     }
     public void Draw()
     {
       GL.PushMatrix();
-      GL.LoadMatrix(transformacao.GetDate());
+      GL.MultMatrix(transformacao.GetDate());
 
       GL.Color3(color);
       GL.Begin(primitive);
@@ -140,8 +135,8 @@ namespace gcgcg
       {
         GL.Vertex3(point.X, point.Y, point.Z);
       }
-      DrawChildrens();
       GL.End();
+      DrawChildrens();
       if (this.selectedPoint > -1) {
         DrawSelectedVertex(this.points4D[this.selectedPoint]);
       }
@@ -150,9 +145,9 @@ namespace gcgcg
     }
     private void DrawChildrens()
     {
-      if (polygons != null)
+      if (children != null)
       {
-        foreach (var poligono in polygons)
+        foreach (var poligono in children)
         {
           poligono.Draw();
         }
