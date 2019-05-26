@@ -14,17 +14,17 @@ namespace gcgcg
       if (command.Equals(Command.MOUSE_MOVE))
       { 
         var hover = PolygonSelector.GetSelected(mundo.polygons, Mouse.X, Mouse.Y);
-        if (hover != null) {
+        if (hover != this.parent) {
           mundo.polygonSelected = hover;
         }
       } else if (command.Equals(Command.CLICK))
       {
-        var child = PolygonSelector.GetSelected(mundo.polygons, Mouse.X, Mouse.Y);
-        if (child != null)
+        var selected = PolygonSelector.GetSelected(mundo.polygons, Mouse.X, Mouse.Y);
+        if (selected != null && selected != this.parent)
         {
-          mundo.RemovePolygon(child);
-          this.parent.children.Add(child);
-          mundo.polygonSelected = null;
+          mundo.RemovePolygon(selected);
+          this.parent.children.Add(selected);
+          mundo.polygonSelected = this.parent;
           return new MainState();
         }
       } else if (command.Equals(Command.ESCAPE))

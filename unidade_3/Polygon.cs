@@ -127,7 +127,7 @@ namespace gcgcg
     public void Draw()
     {
       GL.PushMatrix();
-      GL.LoadMatrix(transformacao.GetDate());
+      GL.MultMatrix(transformacao.GetDate());
 
       GL.Color3(color);
       GL.Begin(primitive);
