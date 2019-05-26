@@ -26,6 +26,10 @@ namespace gcgcg
         if (mundo.polygonSelected != null) {
           return new RotatePolygonState(mundo);
         }
+      } else if (command.Equals(Command.CHILD)) {
+        if (mundo.polygonSelected != null) {
+          return new ChildState(mundo);
+        }
       } else if (command.Equals(Command.NEW_POINT)) {
         return new CreatingPolygonState(mundo);
       } else if (command.Equals(Command.SELECT_VERTEX)) {

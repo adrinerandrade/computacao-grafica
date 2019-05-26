@@ -34,12 +34,23 @@ namespace gcgcg
     public void AddPolygon(Polygon polygon) {
       this.polygons.Add(polygon);
     }
-    
+    public void RemovePolygon(Polygon polygon) {
+      this.RemovePolygonRecursive(this.polygons, polygon);
+    }
+    private void RemovePolygonRecursive(List<Polygon> polygons, Polygon polygon) {
+      for (var i = 0; i < polygons.Count; i++) {
+        if (polygons[i] == polygon) {
+          polygons.RemoveAt(i);
+          return;
+        }
+        this.RemovePolygonRecursive(polygons[i].children, polygon);
+      }
+    }
     public void Draw()
     {
-      foreach (var polygon in polygons)
+      for (var i = 0; i < this.polygons.Count; i++)
       {
-        polygon.Draw();
+        polygons[i].Draw();
       }
       if (polygonSelected != null) {
         polygonSelected.DrawBBox();

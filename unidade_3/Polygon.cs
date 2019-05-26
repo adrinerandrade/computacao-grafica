@@ -13,7 +13,7 @@ namespace gcgcg
     private int selectedPoint = -1;
     private Bbox Bbox;
     public PrimitiveType primitive { get; set; } = PrimitiveType.LineStrip;
-    public List<Polygon> polygons { get; set; }
+    public List<Polygon> children { get; set; } = new List<Polygon>();
     public Color color { get; set; } = Color.Blue;
 
     private Transformacao4D transformacao = new Transformacao4D();
@@ -46,9 +46,6 @@ namespace gcgcg
     }
     public void Translation(double translX, double translY)
     {
-      Console.WriteLine(translX);
-      Console.WriteLine(translY);
-      Console.WriteLine();
       var transl = new Transformacao4D();
       transl.atribuirTranslacao(translX, translY, 0);
 
@@ -125,9 +122,6 @@ namespace gcgcg
     }
     public List<Ponto4D> GetTransformedPoints()
     {
-      // TODO: DEVERIA SALVAR QUEM NO POLIGNO QUEM É PAI, PARA FAZER O CÁLCULO DE TODAS AS TRANSFORMAÇÕES?
-      // ISSO POIS PARA CALCULAR A DISTÂNCIA, OU ENTÃO SE O CLIQUE FOI DENTRO OU NÃO EU PRECISARIA DESSA INFORMAÇÃO.
-      // MAS ENTÃO IRIA CONTRA O PRINCÍPIO DO OPENTK DE TER UMA MATRIZ.
       return this.points4D.ConvertAll(point => this.transformacao.transformPoint(point));
     }
     public void Draw()
@@ -141,8 +135,8 @@ namespace gcgcg
       {
         GL.Vertex3(point.X, point.Y, point.Z);
       }
-      DrawChildrens();
       GL.End();
+      DrawChildrens();
       if (this.selectedPoint > -1) {
         DrawSelectedVertex(this.points4D[this.selectedPoint]);
       }
@@ -151,9 +145,9 @@ namespace gcgcg
     }
     private void DrawChildrens()
     {
-      if (polygons != null)
+      if (children != null)
       {
-        foreach (var poligono in polygons)
+        foreach (var poligono in children)
         {
           poligono.Draw();
         }

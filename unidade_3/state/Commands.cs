@@ -18,6 +18,8 @@ namespace gcgcg
     public static readonly Command MOVE = new Command(new Key[] { Key.M });
     public static readonly Command SCALE = new Command(new Key[] { Key.S });
     public static readonly Command ROTATE = new Command(new Key[] { Key.N });
+    public static readonly Command CHILD = new Command(new Key[] { Key.F });    
+    public static readonly Command CLICK = new Command(new Key[] { Key.MouseLeft });
     public static readonly Command ESCAPE = new Command(new Key[] { Key.Escape });
     public static readonly Command NONE = new Command(new Key[] { });
     private static IEnumerable<Command> Values
@@ -37,6 +39,8 @@ namespace gcgcg
         yield return MOVE;
         yield return SCALE;
         yield return ROTATE;
+        yield return CHILD;
+        yield return CLICK;
         yield return ESCAPE;
         yield return NONE;
       }
