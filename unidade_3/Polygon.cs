@@ -44,12 +44,15 @@ namespace gcgcg
       result.Y = sourcePoint.Y + targetPoint.Y - transformedPoint.Y;
       return result;
     }
-    public void Translation(double targetX, double targetY)
+    public void Translation(double translX, double translY)
     {
-      var originBbox = new Bbox(this.points4D);
-      var translX = targetX - originBbox.centerX;
-      var translY = targetY - originBbox.centerY;
-      this.transformacao.atribuirTranslacao(translX, translY, 0);
+      Console.WriteLine(translX);
+      Console.WriteLine(translY);
+      Console.WriteLine();
+      var transl = new Transformacao4D();
+      transl.atribuirTranslacao(translX, translY, 0);
+
+      this.transformacao = transl.transformMatrix(this.transformacao);
       this.UpdateBBox();
     }
     public void Scale(double scale)
@@ -74,7 +77,6 @@ namespace gcgcg
     }
     public void Rotate(double degreeFactor)
     {
-      Console.WriteLine(degreeFactor * 10);
       var translX = this.Bbox.centerX;
       var translY = this.Bbox.centerY;
 
@@ -91,7 +93,6 @@ namespace gcgcg
       result = result.transformMatrix(initialPositionTrans);
 
       this.transformacao = result.transformMatrix(this.transformacao);
-      this.transformacao.exibeMatriz();
       this.UpdateBBox();
     }
     public void RemoveVertex(int index)
