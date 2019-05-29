@@ -8,12 +8,24 @@ namespace gcgcg
     private double initialY;
     private double lastAngle;
     private double rotationFactor = 1;
+
+    /// <summary>
+    /// Construtror Inicializa os valor iniciais do poligono
+    /// </summary>
+    /// <param name="mundo"></param>
     public RotatePolygonState(Mundo mundo) {
       var bbox = mundo.polygonSelected.GetBBox();
       this.initialX = bbox.centerX;
       this.initialY = bbox.centerY;
       this.lastAngle = 0;
     }
+
+    /// <summary>
+    /// Metodo para iniciar uma rotação
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="mundo"></param>
+    /// <returns></returns>
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.MOUSE_MOVE)) {
@@ -29,6 +41,11 @@ namespace gcgcg
       }
       return this;
     }
+
+    /// <summary>
+    /// Retorna o angulo bom base no mouse e valor inicial do poligono
+    /// </summary>
+    /// <returns></returns>
     private double GetAngle() {
       var dX = Mouse.X - this.initialX;
       var dY = -(Mouse.Y - this.initialY);

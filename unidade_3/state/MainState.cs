@@ -4,6 +4,12 @@ namespace gcgcg
 {
   public class MainState : IState
   {
+    /// <summary>
+    /// Verifica qual ação deve tomar com base no comando recebido
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="mundo"></param>
+    /// <returns></returns>
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.ESCAPE)) {

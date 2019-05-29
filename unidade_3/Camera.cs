@@ -41,12 +41,20 @@ namespace gcgcg
         eventObserver.SetMouseDown(true);
       }
     }
+
+    /// <summary>
+    /// Observa quando a tela do mouse é soltada
+    /// </summary>
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e) {
       if (eventObserver.keys.Count == 0) {
         var command = Command.GetCommand(new List<Key>());
         eventObserver.state = eventObserver.state.Perform(command, mundo);
       }
     }
+
+    /// <summary>
+    /// Captura o movimento do mouse
+    /// </summary>
     protected override void OnMouseMove(OpenTK.Input.MouseMoveEventArgs e) {
       Mouse.UpdateDirections(e);
       if (eventObserver.state != null) {

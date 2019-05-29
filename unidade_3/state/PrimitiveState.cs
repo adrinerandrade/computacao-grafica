@@ -6,6 +6,12 @@ namespace gcgcg
 {
   public class PrimitiveState : IState
   {
+    /// <summary>
+    /// Altera a primitiva
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="mundo"></param>
+    /// <returns></returns>
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.CHANGE_PRIMITIVE)) {

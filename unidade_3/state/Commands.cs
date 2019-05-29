@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace gcgcg
 {
+  /// <summary>
+  /// Classe com todos os comando aceitos
+  /// </summary>
   public class Command
   {
     public static readonly Command NEW_POINT = new Command(new Key[] { Key.B, Key.MouseRight });

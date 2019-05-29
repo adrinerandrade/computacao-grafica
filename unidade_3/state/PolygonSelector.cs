@@ -4,6 +4,14 @@ namespace gcgcg
 {
   public class PolygonSelector
   {
+
+    /// <summary>
+    /// Verifica se o poligono foi selecionado, se clicado dentro da bbox e poligono
+    /// </summary>
+    /// <param name="polygons"></param>
+    /// <param name="X"></param>
+    /// <param name="Y"></param>
+    /// <returns></returns>
     public static Polygon GetSelected(List<Polygon> polygons, double X, double Y)
     {
       foreach (var polygon in polygons)
@@ -26,6 +34,14 @@ namespace gcgcg
       }
       return null;
     }
+
+    /// <summary>
+    /// Verifica se o clique foi entro do poligono
+    /// </summary>
+    /// <param name="points"></param>
+    /// <param name="X"></param>
+    /// <param name="Y"></param>
+    /// <returns></returns>
     private static bool WasClickedInside(List<Ponto4D> points, double X, double Y)
     {
       points.Add(points[0]);

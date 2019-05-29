@@ -11,6 +11,11 @@ namespace gcgcg
   {
     private Mundo mundo;
     private Polygon polygon;
+
+    /// <summary>
+    /// Contrutor cira um poligono e adiciona ao mundo./
+    /// </summary>
+    /// <param name="mundo"></param>
     public CreatingPolygonState(Mundo mundo) {
       this.mundo = mundo;
       this.mundo.polygonSelected = null;
@@ -20,6 +25,14 @@ namespace gcgcg
       });
       mundo.AddPolygon(this.polygon);
     }
+
+    /// <summary>
+    /// Verfica se o comando é para adicionar um poligono
+    /// adicionando ou removendo vertices
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="mundo"></param>
+    /// <returns></returns>
     public IState Perform(Command command, Mundo mundo)
     {
       if (command.Equals(Command.NEW_POINT)) {

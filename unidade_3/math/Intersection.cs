@@ -2,6 +2,10 @@ namespace gcgcg
 {
   public class Intersection
   {
+    /// <summary>
+    /// Calcula a interceção utilizando a formula (b + (a - b) * t)
+    /// </summary>
+    /// <returns></returns>
     public static (double, double) ResolveIntersection((Ponto4D, Ponto4D) scanLine, (Ponto4D, Ponto4D) polygonStraight)
     {
       var Yi = scanLine.Item1.Y;

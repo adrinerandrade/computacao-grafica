@@ -67,7 +67,9 @@ namespace gcgcg
                 }
             }
         }
-
+        /// <summary>
+        /// Bloqueia a thread principal para obrigar o usuário a solvar os botões clicados
+        /// </summary>
         private void EventBlock() {
             while (true) {
                 if (!IsAnyKeyDown()) {
@@ -195,6 +197,10 @@ namespace gcgcg
             return OpenTK.Input.Keyboard.GetState().IsAnyKeyDown;
         }
 
+        /// <summary>
+        /// Informa ao loop de prioridades que o mouse foi clicado
+        /// </summary>
+        /// <param name="isMouseDown"></param>
         public void SetMouseDown(bool isMouseDown) {
             this.isMouseDown = isMouseDown;
         }
