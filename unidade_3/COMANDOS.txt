@@ -1,0 +1,25 @@
+Novo ponto = B + Botão direito do mouse
+
+Finalizar um poligono = Espaco
+
+Apagar vertice ou poligoco = Botao Delete
+
+Selecionar poligono = B + botão esquerdo do mouse
+
+Selecionar vertice = CTRL + B + botão esquerdo do mouse
+
+Cancelar ação atual = ESC
+
+Alterar primitiva = P
+
+Cor azul = A
+Cor verde = G
+Cor vermelha = R
+
+Mover = M
+
+Escala = S
+
+Rotacao = N
+
+Filho = F
