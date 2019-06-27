@@ -2,7 +2,7 @@ Porque eu preciso do Vertex Normal?
 
 Matriz de transformação no Quadrilatero?
 
-Porque ao aplicar uma proporção x10 em cima do eye e do Quadrilatero, para de funcionar?
+Onde está o "far" da câmera?
 
 qual a melhor maneira de se trabalhar com tempo?
   - Criar uma outra thread estava dando problemas de concorrência

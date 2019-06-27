@@ -19,6 +19,27 @@ namespace gcgcg
   {
     public static Mundo instance = null;
     private Quadrilatero objeto = new Quadrilatero(0, 0, 0, 12, 5, 2);
+    private Quadrilatero[] objetos = new Quadrilatero[] {
+      new Quadrilatero(0, 0, -45, 12, 5, 2),
+      new Quadrilatero(0, 0, -40, 12, 5, 2),
+      new Quadrilatero(0, 0, -35, 12, 5, 2),
+      new Quadrilatero(0, 0, -30, 12, 5, 2),
+      new Quadrilatero(0, 0, -25, 12, 5, 2),
+      new Quadrilatero(0, 0, -20, 12, 5, 2),
+      new Quadrilatero(0, 0, -15, 12, 5, 2),
+      new Quadrilatero(0, 0, -10, 12, 5, 2),
+      new Quadrilatero(0, 0, -5, 12, 5, 2),
+      new Quadrilatero(0, 0, 0, 12, 5, 2),
+      new Quadrilatero(0, 0, 5, 12, 5, 2),
+      new Quadrilatero(0, 0, 10, 12, 5, 2),
+      new Quadrilatero(0, 0, 15, 12, 5, 2),
+      new Quadrilatero(0, 0, 20, 12, 5, 2),
+      new Quadrilatero(0, 0, 25, 12, 5, 2),
+      new Quadrilatero(0, 0, 30, 12, 5, 2),
+      new Quadrilatero(0, 0, 35, 12, 5, 2),
+      new Quadrilatero(0, 0, 40, 12, 5, 2),
+      new Quadrilatero(0, 0, 45, 12, 5, 2),
+    };
 
     private Mundo()
     {
@@ -35,7 +56,10 @@ namespace gcgcg
     public void Desenha()
     {
       SRU3D();
-      objeto.Desenha();
+      for (var i = 0; i < objetos.Length; i++)
+      {
+        objetos[i].Desenha();
+      }
     }
     public void MouseMove(int x, int y)
     {
