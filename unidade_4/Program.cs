@@ -25,9 +25,9 @@ namespace gcgcg
       GL.ClearColor(Color.Gray);                        // Aqui é melhor
       GL.Enable(EnableCap.DepthTest);                   // NOVO
 
-      eye.X = 0.1f;
-      eye.Y = 40;
-      eye.Z = 0;
+      eye.X = 10f;
+      eye.Y = 10;
+      eye.Z = 10;
 
     }
     protected override void OnResize(EventArgs e)

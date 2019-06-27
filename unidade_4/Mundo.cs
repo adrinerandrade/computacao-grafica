@@ -18,7 +18,7 @@ namespace gcgcg
   class Mundo
   {
     public static Mundo instance = null;
-    private Cubo objeto = new Cubo();
+    private Quadrilatero objeto = new Quadrilatero(0, 0, 0, 12, 5, 2);
 
     private Mundo()
     {
