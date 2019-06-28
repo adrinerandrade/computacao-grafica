@@ -22,8 +22,8 @@ namespace gcgcg
     {
       base.OnLoad(e);
 
-      GL.ClearColor(Color.Gray);                        // Aqui é melhor
-      GL.Enable(EnableCap.DepthTest);                   // NOVO
+      GL.ClearColor(Color.Gray);
+      GL.Enable(EnableCap.DepthTest);
 
       eye.X = 0;
       eye.Y = 10;
@@ -49,7 +49,7 @@ namespace gcgcg
     {
       base.OnRenderFrame(e);
 
-      GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit); // GL.Clear(ClearBufferMask.ColorBufferBit);
+      GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
       Matrix4 modelview = Matrix4.LookAt(eye, target, up);
       GL.MatrixMode(MatrixMode.Modelview);
@@ -57,78 +57,12 @@ namespace gcgcg
 
       mundo.Desenha();
 
-      // GL.Begin(BeginMode.Triangles);
-
-      //   GL.Color3(1.0f, 1.0f, 0.0f); GL.Vertex3(-1.0f, -1.0f, 0.0f);
-      //   GL.Color3(1.0f, 0.0f, 0.0f); GL.Vertex3(1.0f, -1.0f, 0.0f);
-      //   GL.Color3(0.2f, 0.9f, 1.0f); GL.Vertex3(0.0f, 1.0f, 0.0f);
-
-      // GL.End();
-
       this.SwapBuffers();
     }
 
     protected override void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
     {
-      if (e.Key == Key.Q)
-        eye.X = eye.Y = eye.Z = 15;
-      else
-        if (e.Key == Key.W)
-        eye.X = eye.Y = eye.Z = 10;
-      else
-          if (e.Key == Key.E)
-        eye.X = eye.Y = eye.Z = 5;
-      else
-            if (e.Key == Key.R)
-        eye.X = eye.Y = eye.Z = 1;
-      else
-            if (e.Key == Key.T)
-        eye.X = eye.Y = eye.Z = 0;
-      else
-            if (e.Key == Key.Y)
-        eye.X = eye.Y = eye.Z = -1;
-      else
-            if (e.Key == Key.U)
-        eye.X = eye.Y = eye.Z = -5;
-      else
-            if (e.Key == Key.I)
-        eye.X = eye.Y = eye.Z = -10;
-      else
-            if (e.Key == Key.O)
-        eye.X = eye.Y = eye.Z = -15;
-      else
-            if (e.Key == Key.A)
-        target.X = target.Y = target.Z = 15;
-      else
-            if (e.Key == Key.S)
-        target.X = target.Y = target.Z = 10;
-      else
-            if (e.Key == Key.D)
-        target.X = target.Y = target.Z = 5;
-      else
-            if (e.Key == Key.F)
-        target.X = target.Y = target.Z = 1;
-      else
-            if (e.Key == Key.G)
-        target.X = target.Y = target.Z = 0;
-      else
-            if (e.Key == Key.H)
-        target.X = target.Y = target.Z = -1;
-      else
-            if (e.Key == Key.J)
-        target.X = target.Y = target.Z = -5;
-      else
-            if (e.Key == Key.K)
-        target.X = target.Y = target.Z = -10;
-      else
-            if (e.Key == Key.L)
-        target.X = target.Y = target.Z = -15;
-
       mundo.OnKeyDown(e);
-    }
-
-    protected override void OnMouseMove(MouseMoveEventArgs e)
-    {
     }
   }
 

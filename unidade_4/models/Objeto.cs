@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace gcgcg
 {
-  internal class Objeto
+  internal abstract class Objeto
   {
     protected List<Ponto4D> listaPto = new List<Ponto4D>();
     private BBox bBox = new BBox();
@@ -31,27 +31,16 @@ namespace gcgcg
       listaPto.Add(pto);
     }
     //TODO: entender o uso da keyword virtual ... e replicar para os outros projetos
-    public virtual void Desenha()
+    public void Desenha()
     {
-      GL.LineWidth(4);
-      GL.Color3(Color.White);
-
       GL.PushMatrix();
       GL.MultMatrix(matriz.GetDate());
-      
-      GL.Begin(PrimitiveType.LineLoop);
-      foreach (Ponto4D pto in listaPto)
-      {
-        GL.Vertex2(pto.X, pto.Y);          
-      }
-      GL.End();
-
+      draw();
       //////////// ATENCAO: chamar desenho dos filhos... 
 
       GL.PopMatrix();
-
-      bBox.desenhaBBox();
     }
+    protected abstract void draw();
     public void atualizarBBox()
     {
       if (listaPto.Count > 0) {
@@ -63,14 +52,6 @@ namespace gcgcg
         bBox.processarCentroBBox();
       }
     }
-    // public void Move(int x, int y)
-    // {
-    //   listaPto[1].X = x;
-    //   listaPto[1].Y = y;
-    //   atualizarBBox();
-    //   // Console.WriteLine(" ..x: " + x);
-    //   // Console.WriteLine(" ..y: " + y);
-    // }
     public void exibeMatriz()
     {
       matriz.exibeMatriz();

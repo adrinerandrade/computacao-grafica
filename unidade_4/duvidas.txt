@@ -1,7 +1,3 @@
-Porque eu preciso do Vertex Normal?
-
-Matriz de transformação no Quadrilatero?
-
 Onde está o "far" da câmera?
 
 qual a melhor maneira de se trabalhar com tempo?

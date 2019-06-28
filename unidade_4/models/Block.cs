@@ -5,42 +5,40 @@ using OpenTK.Graphics.OpenGL;
 
 namespace gcgcg
 {
-  internal class Quadrilatero : Objeto
+  internal class Block : Objeto
   {
     private float x;
     private float y;
     private float z;
-    private float comprimento;
-    private float largura;
-    private float altura;
+    private float length;
+    private float width;
+    private float height;
     private bool exibeVetorNormal = false;
-    public Quadrilatero(): this(0, 0, 0, 2, 2, 2)
+    public Block(): this(0, 0, 0, 2, 2, 2)
     {
     }
 
-    public Quadrilatero(float comprimento, float largura, float altura): this(0, 0, 0, comprimento, largura, altura)
+    public Block(float length, float width, float height): this(0, 0, 0, length, width, height)
     {
     }
 
-    public Quadrilatero(float x, float y, float z, float comprimento, float largura, float altura)
+    public Block(float x, float y, float z, float length, float width, float height)
     {
       this.x = x;
       this.y = y;
       this.z = z;
-      this.comprimento = comprimento;
-      this.largura = largura;
-      this.altura = altura;
+      this.length = length;
+      this.width = width;
+      this.height = height;
     }
-
-    //TODO: entender o uso da keyword new ... e replicar para os outros projetos
-    new public void Desenha()
+    protected override void draw()
     {
-      var leftX = this.x + this.comprimento / 2;
-      var rightX = this.x - this.comprimento / 2;
-      var topY = this.y + this.altura / 2;
-      var bottomY = this.y - this.altura / 2;
-      var frontZ = this.z + this.largura / 2;
-      var backZ = this.z - this.largura / 2;
+      var leftX = this.x + this.length / 2;
+      var rightX = this.x - this.length / 2;
+      var topY = this.y + this.height / 2;
+      var bottomY = this.y - this.height / 2;
+      var frontZ = this.z + this.width / 2;
+      var backZ = this.z - this.width / 2;
 
       var color = rgbToGlColor(92, 51, 23);
       GL.Begin(PrimitiveType.Quads);
@@ -67,12 +65,12 @@ namespace gcgcg
       GL.Vertex3(rightX, topY, frontZ);
       GL.Vertex3(rightX, topY, backZ);
       // Face de baixo
-      GL.Color3(1, 1, 1);
       GL.Color3(color[0], color[1], color[2]);
+      GL.Normal3(0, -1, 0);
       GL.Vertex3(leftX, bottomY, backZ);
-      GL.Vertex3(rightX, bottomY, backZ);
-      GL.Vertex3(rightX, bottomY, frontZ);
       GL.Vertex3(leftX, bottomY, frontZ);
+      GL.Vertex3(rightX, bottomY, frontZ);
+      GL.Vertex3(rightX, bottomY, backZ);
       // Face da direita
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(1, 0, 0);
@@ -84,9 +82,9 @@ namespace gcgcg
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(-1, 0, 0);
       GL.Vertex3(leftX, bottomY, backZ);
-      GL.Vertex3(leftX, bottomY, frontZ);
-      GL.Vertex3(leftX, topY, frontZ);
       GL.Vertex3(leftX, topY, backZ);
+      GL.Vertex3(leftX, topY, frontZ);
+      GL.Vertex3(leftX, bottomY, frontZ);
       GL.End();
 
       if (exibeVetorNormal)
