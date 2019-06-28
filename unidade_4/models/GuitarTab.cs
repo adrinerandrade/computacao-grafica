@@ -7,8 +7,5 @@ namespace gcgcg
     {
       tab.Desenha();
     }
-    public void test(){
-      tab.translacaoXYZ(10, 10, 10);
-    }
   }
 }
