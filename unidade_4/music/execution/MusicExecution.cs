@@ -10,6 +10,7 @@ namespace gcgcg
     private List<Runnable> beforeStartListeners = new List<Runnable>();
     private List<Consumer<byte[]>> onNoteListeners = new List<Consumer<byte[]>>();
     private List<Runnable> onStopListeners = new List<Runnable>();
+    private List<Consumer<byte>> onUpdateRenderingListeners = new List<Consumer<byte>>();
     private int musicEndDelay = GuitarTab.TABS_SIZE;
     public MusicExecution(string musicName)
     {
@@ -29,6 +30,11 @@ namespace gcgcg
           {
             onStopAction();
           }
+        }
+      }, progress => {
+        foreach(var onUpdateRenderingListener in onUpdateRenderingListeners)
+        {
+          onUpdateRenderingListener(progress);
         }
       });
     }
@@ -59,6 +65,10 @@ namespace gcgcg
     }
     public void OnStop(Runnable runnable) {
       onStopListeners.Add(runnable);
+    }
+    public void onUpdateRendering(Consumer<byte> runnable)
+    {
+      onUpdateRenderingListeners.Add(runnable);
     }
   }
 }

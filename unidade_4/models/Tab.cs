@@ -9,7 +9,7 @@ namespace gcgcg
     public float y { get; set; }
     public float z { get; set; }
     private byte[] notes;
-    public Tab(float x, float y, float z, byte[] notes): base(x, y, z, new int[] { 143, 77, 31}, LENGTH, WIDTH, HEIGHT)
+    public Tab(float x, float y, float z, byte[] notes, byte index): base(x, y, z, index % 2 == 0 ? new int[] { 143, 77, 31 } : new int[] { 60, 77, 31 }, LENGTH, WIDTH, HEIGHT)
     {
       for (byte i = 0; i < notes.Length; i++)
       {

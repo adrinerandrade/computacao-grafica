@@ -27,7 +27,7 @@ namespace gcgcg
     }
     private static float getHeight(byte type)
     {
-      return type == 1 ? 2 : 0.3f;
+      return type == 1 ? 1 : 0.3f;
     }
     private static int[] getColor(byte index)
     {

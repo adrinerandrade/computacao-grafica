@@ -2,6 +2,7 @@
   Autor: Dalton Solano dos Reis
 */
 using OpenTK.Graphics.OpenGL;
+using System;
 using System.Drawing;
 
 namespace gcgcg
@@ -17,7 +18,6 @@ namespace gcgcg
     public static Mundo instance = null;
     private MusicExecution musicExecution;
     private GuitarTab guitarTab;
-
     public static Mundo getInstance()
     {
       if (instance == null)
@@ -40,6 +40,9 @@ namespace gcgcg
       });
       musicExecution.OnNote(note => {
         this.guitarTab.NewTab(note);
+      });
+      musicExecution.onUpdateRendering(progress => {
+        
       });
     }
     private void SRU3D()
