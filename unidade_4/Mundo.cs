@@ -1,11 +1,8 @@
 /*
   Autor: Dalton Solano dos Reis
 */
-
-using System;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using OpenTK.Input;
 
 namespace gcgcg
 {
@@ -18,6 +15,8 @@ namespace gcgcg
   class Mundo
   {
     public static Mundo instance = null;
+    private MusicExecution musicExecution;
+    private GuitarTab guitarTab;
 
     public static Mundo getInstance()
     {
@@ -25,10 +24,23 @@ namespace gcgcg
         instance = new Mundo();
       return instance;
     }
-
     public void Desenha()
     {
+      if (guitarTab != null)
+      {
+        guitarTab.Desenha();
+      }
       SRU3D();
+    }
+    public void NewMusicExecution(MusicExecution musicExecution)
+    {
+      this.musicExecution = musicExecution;
+      musicExecution.OnBeforeStart(() => {
+        this.guitarTab = new GuitarTab();
+      });
+      musicExecution.OnNote(note => {
+        // this.guitarTab.NewTab(note);
+      });
     }
     private void SRU3D()
     {

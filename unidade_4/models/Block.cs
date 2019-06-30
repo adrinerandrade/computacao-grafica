@@ -13,20 +13,22 @@ namespace gcgcg
     private float length;
     private float width;
     private float height;
+    private float[] color;
     private bool exibeVetorNormal = false;
-    public Block(): this(0, 0, 0, 2, 2, 2)
+    public Block(): this(0, 0, 0, new int[] { 255, 255, 255 }, 2, 2, 2)
     {
     }
 
-    public Block(float length, float width, float height): this(0, 0, 0, length, width, height)
+    public Block(float length, float width, float height): this(0, 0, 0, new int[] { 255, 255, 255 }, length, width, height)
     {
     }
 
-    public Block(float x, float y, float z, float length, float width, float height)
+    public Block(float x, float y, float z, int[] color, float length, float width, float height)
     {
       this.x = x;
       this.y = y;
       this.z = z;
+      this.color = rgbToGlColor(color[0], color[1], color[2]);
       this.length = length;
       this.width = width;
       this.height = height;
@@ -40,7 +42,6 @@ namespace gcgcg
       var frontZ = this.z + this.width / 2;
       var backZ = this.z - this.width / 2;
 
-      var color = rgbToGlColor(92, 51, 23);
       GL.Begin(PrimitiveType.Quads);
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
@@ -57,8 +58,7 @@ namespace gcgcg
       GL.Vertex3(rightX, topY, backZ);
       GL.Vertex3(rightX, bottomY, backZ);
       // Face de cima
-      var color2 = rgbToGlColor(143, 77, 31);
-      GL.Color3(color2[0], color2[1], color2[2]);
+      GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
       GL.Vertex3(leftX, topY, backZ);
       GL.Vertex3(leftX, topY, frontZ);

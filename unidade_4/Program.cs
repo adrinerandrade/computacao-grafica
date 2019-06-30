@@ -20,7 +20,8 @@ namespace gcgcg
     public Render(int width, int height) : base(width, height) {
       this.mundo = Mundo.getInstance();
       this.musicExecution = new MusicExecution("doremifa");
-      this.musicExecution.onStop(() => this.Close());
+      this.mundo.NewMusicExecution(musicExecution);
+      this.musicExecution.OnStop(() => this.Close());
       this.musicExecution.Start();
     }
 

@@ -14,7 +14,7 @@ namespace gcgcg
     protected List<Ponto4D> listaPto = new List<Ponto4D>();
     private BBox bBox = new BBox();
     private Transformacao4D matriz = new Transformacao4D();
-    //TODO: por default ter o atributo do tipo point
+    private List<Objeto> children = new List<Objeto>();
 
     /// Matrizes temporarias que sempre sao inicializadas com matriz Identidade entao podem ser "static".
     private static Transformacao4D matrizTmpTranslacao = new Transformacao4D();
@@ -30,13 +30,15 @@ namespace gcgcg
     public void AdicionaPto(Ponto4D pto) {
       listaPto.Add(pto);
     }
-    //TODO: entender o uso da keyword virtual ... e replicar para os outros projetos
     public void Desenha()
     {
       GL.PushMatrix();
       GL.MultMatrix(matriz.GetDate());
       draw();
-      //////////// ATENCAO: chamar desenho dos filhos... 
+      for (var i = 0; i < children.Count; i++)
+      {
+        children[i].Desenha();
+      }
 
       GL.PopMatrix();
     }
@@ -44,7 +46,7 @@ namespace gcgcg
     public void atualizarBBox()
     {
       if (listaPto.Count > 0) {
-        bBox.atribuirBBox(listaPto[0]);             // inicializa BBox
+        bBox.atribuirBBox(listaPto[0]);
         for (int i = 1; i < listaPto.Count; i++)
         {
           bBox.atualizarBBox(listaPto[i]);
@@ -64,6 +66,10 @@ namespace gcgcg
     public void atribuirIdentidade()
     {
       matriz.atribuirIdentidade();
+    }
+    public void addChild(Objeto child)
+    {
+      this.children.Add(child);
     }
     public void translacaoXYZ(double tx, double ty, double tz)
     {
