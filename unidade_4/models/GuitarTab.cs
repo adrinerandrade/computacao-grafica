@@ -1,11 +1,14 @@
+using System.Collections;
+
 namespace gcgcg
 {
   public class GuitarTab
   {
-    private Tab tab = new Tab(0, 0, 0);
+    public GuitarTab()
+    {
+    }
     public void Desenha()
     {
-      tab.Desenha();
     }
   }
 }

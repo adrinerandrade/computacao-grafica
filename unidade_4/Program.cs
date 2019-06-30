@@ -12,11 +12,17 @@ namespace gcgcg
 {
   class Render : GameWindow
   {
-    Mundo mundo = Mundo.getInstance();
+    Mundo mundo;
+    MusicExecution musicExecution;
     Camera camera = new Camera();
     Vector3 eye = Vector3.Zero, target = Vector3.Zero, up = Vector3.UnitY;
 
-    public Render(int width, int height) : base(width, height) { }
+    public Render(int width, int height) : base(width, height) {
+      this.mundo = Mundo.getInstance();
+      this.musicExecution = new MusicExecution("doremifa");
+      this.musicExecution.onStop(() => this.Close());
+      this.musicExecution.Start();
+    }
 
     protected override void OnLoad(EventArgs e)
     {
@@ -62,7 +68,24 @@ namespace gcgcg
 
     protected override void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
     {
-      mundo.OnKeyDown(e);
+      if (e.Key == Key.A)
+        Console.WriteLine("play 0");
+      else
+        if (e.Key == Key.S)
+          Console.WriteLine("play 1");
+      else
+        if (e.Key == Key.D)
+          Console.WriteLine("play 2");
+      else
+        if (e.Key == Key.F)
+          Console.WriteLine("play 3");
+      else
+        if (e.Key == Key.G)
+          Console.WriteLine("play 4");
+    }
+    protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+    {
+      this.musicExecution.Cancel();
     }
   }
 

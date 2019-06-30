@@ -18,7 +18,6 @@ namespace gcgcg
   class Mundo
   {
     public static Mundo instance = null;
-    private GuitarTab guitarTab = new GuitarTab();
 
     public static Mundo getInstance()
     {
@@ -30,27 +29,7 @@ namespace gcgcg
     public void Desenha()
     {
       SRU3D();
-      guitarTab.Desenha();
     }
-
-    public void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
-    {
-      if (e.Key == Key.A)
-        Console.WriteLine("play 0");
-      else
-        if (e.Key == Key.S)
-          Console.WriteLine("play 1");
-      else
-        if (e.Key == Key.D)
-          Console.WriteLine("play 2");
-      else
-        if (e.Key == Key.F)
-          Console.WriteLine("play 3");
-      else
-        if (e.Key == Key.G)
-          Console.WriteLine("play 4");
-    }
-
     private void SRU3D()
     {
       GL.LineWidth(1);
