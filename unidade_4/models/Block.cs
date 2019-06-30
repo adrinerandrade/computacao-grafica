@@ -7,9 +7,9 @@ namespace gcgcg
 {
   internal class Block : Objeto
   {
-    private float x;
-    private float y;
-    private float z;
+    public float x { get; set; }
+    public float y { get; set; }
+    public float z { get; set; }
     private float length;
     private float width;
     private float height;

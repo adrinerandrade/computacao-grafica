@@ -41,8 +41,12 @@ namespace gcgcg
       musicExecution.OnNote(note => {
         this.guitarTab.NewTab(note);
       });
+      var translationZ = Tab.WIDTH / MusicTimer.GRAPHIC_PROGRESSION_RATE;
       musicExecution.onUpdateRendering(progress => {
-        
+        if (progress > 0)
+        {
+          this.guitarTab.TranslateTabs(0, 0, translationZ);
+        }
       });
     }
     private void SRU3D()

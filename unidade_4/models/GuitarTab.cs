@@ -13,17 +13,24 @@ namespace gcgcg
       INITIAL_POSITION = -((TABS_SIZE / 2) * Tab.WIDTH);
       for (var i = 0; i < tabs.Length; i++)
       {
-        this.NewTab(new byte[5]);
+        this.NewTab(new byte[5], true);
       }
     }
     public void NewTab(byte[] notes)
+    {
+      this.NewTab(notes, false);
+    }
+    private void NewTab(byte[] notes, bool translate)
     {
       for (var i = TABS_SIZE - 2; i >= 0; i--)
       {
         if (tabs[i] != null)
         {
           tabs[i + 1] = tabs[i];
-          tabs[i].translacaoXYZ(0, 0, Tab.WIDTH);
+          if (translate)
+          {
+            tabs[i].translacaoXYZ(0, 0, Tab.WIDTH);
+          }
         }
       }
       random = random == 0 ? (byte) 1: (byte) 0; 

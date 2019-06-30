@@ -6,7 +6,7 @@ namespace gcgcg
 {
   public class MusicTimer
   {
-    public static readonly float GRAPHIC_PROGRESSION_RATE = 10;
+    public static readonly float GRAPHIC_PROGRESSION_RATE = 15;
     public float interval { get; }
     private Timer timer;
     private Timer graphicTimer;

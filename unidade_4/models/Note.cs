@@ -1,3 +1,5 @@
+using System;
+
 namespace gcgcg
 {
   internal class Note: Block

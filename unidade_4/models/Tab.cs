@@ -5,9 +5,6 @@ namespace gcgcg
     public static readonly int HEIGHT = 2;
     public static readonly int WIDTH = 5;
     public static readonly int LENGTH = 12;
-    public float x { get; set; }
-    public float y { get; set; }
-    public float z { get; set; }
     private byte[] notes;
     public Tab(float x, float y, float z, byte[] notes, byte index): base(x, y, z, index % 2 == 0 ? new int[] { 143, 77, 31 } : new int[] { 60, 77, 31 }, LENGTH, WIDTH, HEIGHT)
     {
