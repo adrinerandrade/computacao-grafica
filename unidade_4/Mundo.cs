@@ -39,7 +39,7 @@ namespace gcgcg
         this.guitarTab = new GuitarTab();
       });
       musicExecution.OnNote(note => {
-        // this.guitarTab.NewTab(note);
+        this.guitarTab.NewTab(note);
       });
     }
     private void SRU3D()

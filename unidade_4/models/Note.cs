@@ -3,7 +3,7 @@ namespace gcgcg
   internal class Note: Block
   {
     public readonly static float LENGTH = 2;
-    public Note(Tab tab, byte index, byte type): base(getXPosition(tab, index), tab.y + (Tab.HEIGHT / 2), tab.z, getColor(index), LENGTH, 2, 0.5f)
+    public Note(Tab tab, byte index, byte type): base(getXPosition(tab, index), tab.y + (Tab.HEIGHT / 2), tab.z, getColor(index), LENGTH, 2, 1f)
     {
       tab.addChild(this);
     }
