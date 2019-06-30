@@ -4,7 +4,7 @@ namespace gcgcg
 {
   public class GuitarTab
   {
-    private static readonly int TABS_SIZE = 14;
+    public static readonly int TABS_SIZE = 14;
     private static readonly float AVOID_CONFLICT_FACTOR = 0.01f;
     private readonly float INITIAL_POSITION;
     private Tab[] tabs = new Tab[TABS_SIZE];

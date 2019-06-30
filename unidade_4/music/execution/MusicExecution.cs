@@ -10,6 +10,7 @@ namespace gcgcg
     private List<Runnable> beforeStartListeners = new List<Runnable>();
     private List<Consumer<byte[]>> onNoteListeners = new List<Consumer<byte[]>>();
     private List<Runnable> onStopListeners = new List<Runnable>();
+    private int musicEndDelay = GuitarTab.TABS_SIZE;
     public MusicExecution(string musicName)
     {
       var music = MusicProvider.get(musicName);
@@ -17,12 +18,12 @@ namespace gcgcg
       this.musicTimer = new MusicTimer(music, () => {
         if (noteQueue.hasNext())
         {
-          foreach(var onNoteListener in onNoteListeners)
-          {
-          onNoteListener(noteQueue.next());
-          }
-        } else
+          executeNotes(noteQueue.next());
+        } else if (musicEndDelay > 0)
         {
+          musicEndDelay--;
+          executeNotes(new byte[5]);
+        } else {
           this.musicTimer.Cancel();
           foreach(var onStopAction in onStopListeners)
           {
@@ -30,6 +31,13 @@ namespace gcgcg
           }
         }
       });
+    }
+    private void executeNotes(byte[] notes)
+    {
+      foreach(var onNoteListener in onNoteListeners)
+      {
+        onNoteListener(notes);
+      }
     }
     public void Start()
     {
