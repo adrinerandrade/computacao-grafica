@@ -3,9 +3,11 @@
 */
 
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing;
 using OpenTK.Input;
 
 namespace gcgcg
@@ -17,7 +19,10 @@ namespace gcgcg
     Camera camera = new Camera();
     Vector3 eye = Vector3.Zero, target = Vector3.Zero, up = Vector3.UnitY;
 
-    public Render(int width, int height) : base(width, height) {
+    int texture;
+
+    public Render(int width, int height) : base(width, height)
+    {
       this.mundo = Mundo.getInstance();
       this.musicExecution = new MusicExecution("doremifa");
       this.mundo.NewMusicExecution(musicExecution);
@@ -36,7 +41,29 @@ namespace gcgcg
       eye.Y = 10;
       eye.Z = 40;
 
+      GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+      GL.GenTextures(1, out texture);
+      GL.BindTexture(TextureTarget.Texture2D, texture);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+
+      // Image image = null;
+      try {
+        
+
+        Bitmap bitmap = new Bitmap(@"./texture/guitar.jpg", true);
+        //   BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+        //       ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+        //   GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+        //       OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+      } catch (Exception err) {
+        Console.WriteLine(err.Message);
+      }
+
     }
+
     protected override void OnResize(EventArgs e)
     {
       base.OnResize(e);
@@ -73,16 +100,16 @@ namespace gcgcg
         Console.WriteLine("play 0");
       else
         if (e.Key == Key.S)
-          Console.WriteLine("play 1");
+        Console.WriteLine("play 1");
       else
         if (e.Key == Key.D)
-          Console.WriteLine("play 2");
+        Console.WriteLine("play 2");
       else
         if (e.Key == Key.F)
-          Console.WriteLine("play 3");
+        Console.WriteLine("play 3");
       else
         if (e.Key == Key.G)
-          Console.WriteLine("play 4");
+        Console.WriteLine("play 4");
     }
     protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
     {
