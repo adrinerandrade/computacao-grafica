@@ -1,7 +1,7 @@
 public abstract class ITextureTop: ITexture {
 
   public ITextureTop() {
-    this.Type = ETexture.TOP;
+    this.IsTop = true;
   }
     
 }
