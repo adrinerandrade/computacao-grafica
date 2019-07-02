@@ -10,7 +10,7 @@ namespace gcgcg
       getColor(index), 
       getLength(type), 
       getWidth(type), 
-      getHeight(type))
+      getHeight(type), null)
     {
       tab.addChild(this);
     }

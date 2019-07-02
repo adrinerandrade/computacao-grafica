@@ -16,15 +16,16 @@ namespace gcgcg
     private float height;
     private float[] color;
     private bool exibeVetorNormal = false;
-    public Block(): this(0, 0, 0, new int[] { 255, 255, 255 }, 2, 2, 2)
+    private ITexture texture;
+    public Block(): this(0, 0, 0, new int[] { 255, 255, 255 }, 2, 2, 2, null)
     {
     }
 
-    public Block(float length, float width, float height): this(0, 0, 0, new int[] { 255, 255, 255 }, length, width, height)
+    public Block(float length, float width, float height): this(0, 0, 0, new int[] { 255, 255, 255 }, length, width, height, null)
     {
     }
 
-    public Block(float x, float y, float z, int[] color, float length, float width, float height)
+    public Block(float x, float y, float z, int[] color, float length, float width, float height, ITexture texture)
     {
       this.x = x;
       this.y = y;
@@ -33,6 +34,7 @@ namespace gcgcg
       this.length = length;
       this.width = width;
       this.height = height;
+      this.texture = texture;
     }
     protected override void draw()
     {
@@ -42,8 +44,10 @@ namespace gcgcg
       var bottomY = this.y - this.height / 2;
       var frontZ = this.z + this.width / 2;
       var backZ = this.z - this.width / 2;
-      GL.Enable(EnableCap.Texture2D);
-GL.BindTexture(TextureTarget.Texture2D, Render.texture);
+      if (this.texture != null) {
+        GL.Enable(EnableCap.Texture2D);
+        GL.BindTexture(TextureTarget.Texture2D, Render.texture);
+      }
       GL.Begin(PrimitiveType.Quads);
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
@@ -62,13 +66,21 @@ GL.BindTexture(TextureTarget.Texture2D, Render.texture);
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
-      GL.TexCoord2(0.0f, 1.0f);
+      if (this.texture != null) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, topY, backZ);
-      GL.TexCoord2(1.0f, 1.0f);
+      if (this.texture != null) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(leftX, topY, frontZ);
-       GL.TexCoord2(1.0f, 0.0f);
+      if (this.texture != null) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, topY, frontZ);
-      GL.TexCoord2(0.0f, 0.0f);
+      if (this.texture != null) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(rightX, topY, backZ);
       // Face de baixo
       GL.Color3(color[0], color[1], color[2]);
@@ -92,7 +104,10 @@ GL.BindTexture(TextureTarget.Texture2D, Render.texture);
       GL.Vertex3(leftX, topY, frontZ);
       GL.Vertex3(leftX, bottomY, frontZ);
       GL.End();
-      GL.Disable(EnableCap.Texture2D);
+
+      if (this.texture != null) {
+        GL.Disable(EnableCap.Texture2D);
+      }
 
       if (exibeVetorNormal)
         ajudaExibirVetorNormal();

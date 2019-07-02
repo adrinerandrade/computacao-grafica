@@ -7,7 +7,7 @@ namespace gcgcg
     public static readonly int LENGTH = 12;
     private byte[] notes;
     public Tab(float x, float y, float z, byte[] notes, byte index)
-      : base(x, y, z, new int[] { 255, 255, 255 }, LENGTH, WIDTH, HEIGHT)
+      : base(x, y, z, new int[] { 255, 255, 255 }, LENGTH, WIDTH, HEIGHT, new TabTexture(Render.texture))
     {
       for (byte i = 0; i < notes.Length; i++)
       {
