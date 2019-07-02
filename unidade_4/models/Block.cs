@@ -66,21 +66,13 @@ namespace gcgcg
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
-      if (this.texture != null) {
-        this.texture.CreateTexture1();
-      }
+      GL.TexCoord2(0.0f, 1.0f);
       GL.Vertex3(leftX, topY, backZ);
-      if (this.texture != null) {
-        this.texture.CreateTexture2();
-      }
+      GL.TexCoord2(1.0f, 1.0f);
       GL.Vertex3(leftX, topY, frontZ);
-      if (this.texture != null) {
-        this.texture.CreateTexture3();
-      }
+      GL.TexCoord2(1.0f, 0.0f);
       GL.Vertex3(rightX, topY, frontZ);
-      if (this.texture != null) {
-        this.texture.CreateTexture4();
-      }
+      GL.TexCoord2(0.0f, 0.0f);
       GL.Vertex3(rightX, topY, backZ);
       // Face de baixo
       GL.Color3(color[0], color[1], color[2]);
