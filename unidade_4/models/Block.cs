@@ -1,6 +1,7 @@
 /*
   Autor: Dalton Solano dos Reis
  */
+using System;
 using OpenTK.Graphics.OpenGL;
 
 namespace gcgcg
@@ -41,7 +42,8 @@ namespace gcgcg
       var bottomY = this.y - this.height / 2;
       var frontZ = this.z + this.width / 2;
       var backZ = this.z - this.width / 2;
-
+      GL.Enable(EnableCap.Texture2D);
+GL.BindTexture(TextureTarget.Texture2D, Render.texture);
       GL.Begin(PrimitiveType.Quads);
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
@@ -60,9 +62,13 @@ namespace gcgcg
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
+      GL.TexCoord2(0.0f, 1.0f);
       GL.Vertex3(leftX, topY, backZ);
+      GL.TexCoord2(1.0f, 1.0f);
       GL.Vertex3(leftX, topY, frontZ);
+       GL.TexCoord2(1.0f, 0.0f);
       GL.Vertex3(rightX, topY, frontZ);
+      GL.TexCoord2(0.0f, 0.0f);
       GL.Vertex3(rightX, topY, backZ);
       // Face de baixo
       GL.Color3(color[0], color[1], color[2]);
@@ -86,6 +92,7 @@ namespace gcgcg
       GL.Vertex3(leftX, topY, frontZ);
       GL.Vertex3(leftX, bottomY, frontZ);
       GL.End();
+      GL.Disable(EnableCap.Texture2D);
 
       if (exibeVetorNormal)
         ajudaExibirVetorNormal();

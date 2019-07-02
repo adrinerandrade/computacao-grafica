@@ -19,7 +19,7 @@ namespace gcgcg
     Camera camera = new Camera();
     Vector3 eye = Vector3.Zero, target = Vector3.Zero, up = Vector3.UnitY;
 
-    int texture;
+    public static int texture;
 
     public Render(int width, int height) : base(width, height)
     {
@@ -42,25 +42,20 @@ namespace gcgcg
       eye.Z = 40;
 
       GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
-      GL.GenTextures(1, out texture);
+      GL.GenTextures(1, out Render.texture);
+      Console.WriteLine(Render.texture);
       GL.BindTexture(TextureTarget.Texture2D, texture);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 
+        Bitmap bitmap = new Bitmap(@"./textureRepository/logoGCG.png");
+           BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+               ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-      // Image image = null;
-      try {
-        
+           GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+               OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
-        Bitmap bitmap = new Bitmap(@"./texture/guitar.jpg", true);
-        //   BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-        //       ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-        //   GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-        //       OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-      } catch (Exception err) {
-        Console.WriteLine(err.Message);
-      }
+bitmap.UnlockBits(data);
 
     }
 
