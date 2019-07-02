@@ -1,3 +1,3 @@
-public interface ITextureTop {
+public abstract class ITextureTop: ITexture {
     
 }

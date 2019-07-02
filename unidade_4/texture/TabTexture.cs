@@ -1,4 +1,4 @@
-public class TabTexture: ITexture, ITextureTop {
+public class TabTexture: ITextureTop {
 
     public TabTexture(int texture) {
         this.Texture = texture;
