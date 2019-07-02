@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 public abstract class ITexture {
 
     public int Texture { get; set; }
-    public ITexture Type { get; set; }
+    public ETexture Type { get; set; }
 
     public void CreateTexture1() {
         GL.TexCoord2(0.0f, 1.0f);
@@ -17,4 +17,8 @@ public abstract class ITexture {
     public void CreateTexture4() {
         GL.TexCoord2(0.0f, 0.0f);
     }
+}
+
+public enum ETexture {
+    TOP
 }
