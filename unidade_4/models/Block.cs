@@ -44,10 +44,8 @@ namespace gcgcg
       var bottomY = this.y - this.height / 2;
       var frontZ = this.z + this.width / 2;
       var backZ = this.z - this.width / 2;
-      if (this.texture != null) {
-        GL.Enable(EnableCap.Texture2D);
-        GL.BindTexture(TextureTarget.Texture2D, this.texture.Texture);
-      }
+      GL.Enable(EnableCap.Texture2D);
+      GL.BindTexture(TextureTarget.Texture2D, Render.tabTexture);
       GL.Begin(PrimitiveType.Quads);
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
