@@ -16,7 +16,7 @@ namespace gcgcg
     private float height;
     private float[] color;
     private bool exibeVetorNormal = false;
-    private dynamic texture;
+    private ITexture texture;
     public Block(): this(0, 0, 0, new int[] { 255, 255, 255 }, 2, 2, 2, null)
     {
     }
@@ -25,7 +25,7 @@ namespace gcgcg
     {
     }
 
-    public Block(float x, float y, float z, int[] color, float length, float width, float height, dynamic texture)
+    public Block(float x, float y, float z, int[] color, float length, float width, float height, ITexture texture)
     {
       this.x = x;
       this.y = y;
@@ -66,23 +66,19 @@ namespace gcgcg
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
-      bool isTop = false;
-      if (this.texture != null) {
-        Type[] types = this.texture.GetType();
-      }
-      if (this.texture != null && this.texture.GetType() == typeof(ITextureTop)) {
+      if (this.texture != null && this.texture.Type.GetType() == typeof(ITextureTop)) {
         this.texture.CreateTexture1();
       }
       GL.Vertex3(leftX, topY, backZ);
-      if (this.texture != null && this.texture.GetType() == typeof(ITextureTop)) {
+      if (this.texture != null && this.texture.Type.GetType() == typeof(ITextureTop)) {
         this.texture.CreateTexture2();
       }
       GL.Vertex3(leftX, topY, frontZ);
-      if (this.texture != null && this.texture.GetType() == typeof(ITextureTop)) {
+      if (this.texture != null && this.texture.Type.GetType() == typeof(ITextureTop)) {
         this.texture.CreateTexture3();
       }
       GL.Vertex3(rightX, topY, frontZ);
-      if (this.texture != null && this.texture.GetType() == typeof(ITextureTop)) {
+      if (this.texture != null && this.texture.Type.GetType() == typeof(ITextureTop)) {
         this.texture.CreateTexture4();
       }
       GL.Vertex3(rightX, topY, backZ);
