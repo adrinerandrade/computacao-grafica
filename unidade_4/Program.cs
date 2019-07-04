@@ -33,7 +33,6 @@ namespace gcgcg
     {
       base.OnLoad(e);
 
-      GL.ClearColor(Color.Gray);
       GL.Enable(EnableCap.DepthTest);
 
       eye.X = 0;
@@ -55,7 +54,20 @@ namespace gcgcg
 
       bitmap.UnlockBits(data);
 
+       GL.Enable(EnableCap.Texture2D);
+        GL.BindTexture(TextureTarget.Texture2D, tabTexture);
+
+      GL.Begin(PrimitiveType.Quads);
+      GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(0, 0, 0);
+      GL.TexCoord2(1.0f, 1.0f); GL.Vertex3(0, 100, 0);
+      GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(100, 100, 0);
+      GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(100, 0, 0);
+      GL.End();
+
       this.musicExecution.Start();
+
+
+      
 
     }
 
@@ -82,7 +94,7 @@ namespace gcgcg
 
       Matrix4 modelview = Matrix4.LookAt(eye, target, up);
       GL.MatrixMode(MatrixMode.Modelview);
-      GL.LoadMatrix(ref modelview);
+      GL.LoadMatrix(ref modelview);      
 
       mundo.Desenha();
 

@@ -52,6 +52,7 @@ namespace gcgcg
     private void SRU3D()
     {
       GL.LineWidth(1);
+      
       GL.Begin(PrimitiveType.Lines);
       GL.Color3(Color.Red);
       GL.Vertex3(0, 0, 0); GL.Vertex3(200, 0, 0);
