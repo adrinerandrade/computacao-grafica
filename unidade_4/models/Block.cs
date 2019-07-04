@@ -17,14 +17,6 @@ namespace gcgcg
     private float[] color;
     private bool exibeVetorNormal = false;
     private dynamic texture;
-    public Block(): this(0, 0, 0, new int[] { 255, 255, 255 }, 2, 2, 2, null)
-    {
-    }
-
-    public Block(float length, float width, float height): this(0, 0, 0, new int[] { 255, 255, 255 }, length, width, height, null)
-    {
-    }
-
     public Block(float x, float y, float z, int[] color, float length, float width, float height, dynamic texture)
     {
       this.x = x;
@@ -44,8 +36,10 @@ namespace gcgcg
       var bottomY = this.y - this.height / 2;
       var frontZ = this.z + this.width / 2;
       var backZ = this.z - this.width / 2;
-      GL.Enable(EnableCap.Texture2D);
-      GL.BindTexture(TextureTarget.Texture2D, Render.tabTexture);
+      if (this.texture != null) {
+        GL.Enable(EnableCap.Texture2D);
+        GL.BindTexture(TextureTarget.Texture2D, this.texture.Texture);
+      }
       GL.Begin(PrimitiveType.Quads);
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
@@ -64,13 +58,21 @@ namespace gcgcg
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 1, 0);
-      GL.TexCoord2(0.0f, 1.0f);
+      if (this.texture != null && this.texture.IsTop) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, topY, backZ);
-      GL.TexCoord2(1.0f, 1.0f);
+      if (this.texture != null && this.texture.IsTop) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(leftX, topY, frontZ);
-      GL.TexCoord2(1.0f, 0.0f);
+      if (this.texture != null && this.texture.IsTop) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, topY, frontZ);
-      GL.TexCoord2(0.0f, 0.0f);
+      if (this.texture != null && this.texture.IsTop) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(rightX, topY, backZ);
       // Face de baixo
       GL.Color3(color[0], color[1], color[2]);

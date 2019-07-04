@@ -27,7 +27,6 @@ namespace gcgcg
       this.musicExecution = new MusicExecution("doremifa");
       this.mundo.NewMusicExecution(musicExecution);
       this.musicExecution.OnStop(() => this.Close());
-      this.musicExecution.Start();
     }
 
     protected override void OnLoad(EventArgs e)
@@ -55,6 +54,8 @@ namespace gcgcg
       OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
       bitmap.UnlockBits(data);
+
+      this.musicExecution.Start();
 
     }
 
