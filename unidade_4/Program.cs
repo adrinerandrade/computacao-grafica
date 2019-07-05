@@ -35,8 +35,6 @@ namespace gcgcg
       base.OnLoad(e);
 
       GL.Enable(EnableCap.DepthTest);
-      GL.Enable(EnableCap.CullFace);
-      GL.CullFace(CullFaceMode.Front);
 
       eye.X = 0;
       eye.Y = 10;
@@ -81,7 +79,7 @@ namespace gcgcg
 
       GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-      Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 500f);
+      Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 80f);
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadMatrix(ref projection);
     }
