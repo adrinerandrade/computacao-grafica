@@ -6,7 +6,7 @@ namespace gcgcg
 {
   public class MusicTimer
   {
-    public static readonly int GRAPHIC_PROGRESSION_RATE = 10;
+    public static readonly int GRAPHIC_PROGRESSION_RATE = 20;
     private PreciseTimer timer;
     private Runnable bpmRunner;
     private Consumer<byte> graphicRunner;
