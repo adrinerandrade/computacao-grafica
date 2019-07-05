@@ -10,7 +10,9 @@ namespace gcgcg
       getColor(index), 
       getLength(type), 
       getWidth(type), 
-      getHeight(type), null)
+      getHeight(type),
+      new NoteTexture(Render.noteTexture)
+    )
     {
       tab.addChild(this);
     }

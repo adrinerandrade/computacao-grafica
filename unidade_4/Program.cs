@@ -20,6 +20,7 @@ namespace gcgcg
     Vector3 eye = Vector3.Zero, target = Vector3.Zero, up = Vector3.UnitY;
 
     public static int tabTexture;
+    public static int noteTexture;
 
     public Render(int width, int height) : base(width, height)
     {
@@ -34,6 +35,8 @@ namespace gcgcg
       base.OnLoad(e);
 
       GL.Enable(EnableCap.DepthTest);
+      GL.Enable(EnableCap.CullFace);
+      GL.CullFace(CullFaceMode.Front);
 
       eye.X = 0;
       eye.Y = 10;
@@ -45,7 +48,22 @@ namespace gcgcg
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 
-      Bitmap bitmap = new Bitmap(@"./textureRepository/logoGCG.png");
+      Bitmap tabBitmap = new Bitmap(@"./textureRepository/logoGCG.png");
+      BitmapData tabData = tabBitmap.LockBits(new System.Drawing.Rectangle(0, 0, tabBitmap.Width, tabBitmap.Height),
+      ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+      GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, tabData.Width, tabData.Height, 0,
+      OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, tabData.Scan0);
+
+      tabBitmap.UnlockBits(tabData);
+
+      GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+      GL.GenTextures(1, out Render.noteTexture);
+      GL.BindTexture(TextureTarget.Texture2D, Render.noteTexture);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+      Bitmap bitmap = new Bitmap(@"./textureRepository/note.png");
       BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
       ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
@@ -63,7 +81,7 @@ namespace gcgcg
 
       GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-      Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 50f);
+      Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 500f);
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadMatrix(ref projection);
     }
@@ -81,7 +99,6 @@ namespace gcgcg
       Matrix4 modelview = Matrix4.LookAt(eye, target, up);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);      
-
       mundo.Desenha();
 
       this.SwapBuffers();

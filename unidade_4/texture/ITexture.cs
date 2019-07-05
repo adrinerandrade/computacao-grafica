@@ -4,6 +4,10 @@ public abstract class ITexture {
 
     public int Texture { get; set; }
     public bool IsTop { get; set; } = false;
+    public bool IsBotton { get; set; } = false;
+    public bool IsLeft { get; set; } = false;
+    public bool IsRight { get; set; } = false;
+    public bool IsBackground { get; set; } = false;
 
     public void CreateTexture1() {
         GL.TexCoord2(0.0f, 1.0f);

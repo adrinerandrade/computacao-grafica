@@ -44,16 +44,40 @@ namespace gcgcg
       // Face da frente
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 0, 1);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, bottomY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(rightX, bottomY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, topY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(leftX, topY, frontZ);
       // Face do fundo
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, 0, -1);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, bottomY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(leftX, topY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, topY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(rightX, bottomY, backZ);
       // Face de cima
       GL.Color3(color[0], color[1], color[2]);
@@ -77,23 +101,59 @@ namespace gcgcg
       // Face de baixo
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(0, -1, 0);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, bottomY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(leftX, bottomY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, bottomY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(rightX, bottomY, backZ);
       // Face da direita
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(1, 0, 0);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(rightX, bottomY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(rightX, topY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(rightX, topY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(rightX, bottomY, frontZ);
       // Face da esquerda
       GL.Color3(color[0], color[1], color[2]);
       GL.Normal3(-1, 0, 0);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture1();
+      }
       GL.Vertex3(leftX, bottomY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture2();
+      }
       GL.Vertex3(leftX, topY, backZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture3();
+      }
       GL.Vertex3(leftX, topY, frontZ);
+      if (this.texture != null && this.texture.IsBackground) {
+        this.texture.CreateTexture4();
+      }
       GL.Vertex3(leftX, bottomY, frontZ);
       GL.End();
 

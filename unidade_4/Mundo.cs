@@ -18,6 +18,7 @@ namespace gcgcg
     public static Mundo instance = null;
     private MusicExecution musicExecution;
     private GuitarTab guitarTab;
+    private Background background = new Background();
     public static Mundo getInstance()
     {
       if (instance == null)
@@ -28,6 +29,7 @@ namespace gcgcg
     {
       if (guitarTab != null)
       {
+        background.Desenha();
         guitarTab.Desenha();
       }
       SRU3D();
