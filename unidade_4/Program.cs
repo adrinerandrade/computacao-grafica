@@ -37,7 +37,7 @@ namespace gcgcg
 
       eye.X = 0;
       eye.Y = 10;
-      eye.Z = 40;
+      eye.Z = 30;
 
       GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
       GL.GenTextures(1, out Render.tabTexture);
