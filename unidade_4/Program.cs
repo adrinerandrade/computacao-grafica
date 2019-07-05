@@ -54,21 +54,7 @@ namespace gcgcg
 
       bitmap.UnlockBits(data);
 
-       GL.Enable(EnableCap.Texture2D);
-        GL.BindTexture(TextureTarget.Texture2D, tabTexture);
-
-      GL.Begin(PrimitiveType.Quads);
-      GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(0, 0, 0);
-      GL.TexCoord2(1.0f, 1.0f); GL.Vertex3(0, 100, 0);
-      GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(100, 100, 0);
-      GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(100, 0, 0);
-      GL.End();
-
       this.musicExecution.Start();
-
-
-      
-
     }
 
     protected override void OnResize(EventArgs e)
