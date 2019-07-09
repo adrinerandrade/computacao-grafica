@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using System.Timers;
+using System.Threading;
 
 namespace gcgcg
 {
@@ -13,8 +13,12 @@ namespace gcgcg
     private float noteInterval;
     private float graphicInterval;
     private int tickCount;
+
+    private Process process;
+    public static Thread threadMusic { get; set; }
     public MusicTimer(Music music, Runnable bpmRunner, Consumer<byte> graphicRunner)
     {
+      this.ExecuteMusic(music.mp3);
       this.noteInterval = (float) ((60000f / music.bpm) / music.subdivision);
       this.graphicInterval = (float) (noteInterval / GRAPHIC_PROGRESSION_RATE);
 
@@ -22,10 +26,30 @@ namespace gcgcg
       this.graphicRunner = graphicRunner;
       this.timer = new PreciseTimer((int) graphicInterval, Execute);
     }
+    public void ExecuteMusic(String Music)
+    {
+      process = new System.Diagnostics.Process();
+      process.StartInfo.FileName = "/bin/bash";
+      process.StartInfo.UseShellExecute = false;
+      process.StartInfo.RedirectStandardOutput = true;
+      process.StartInfo.Arguments = "-c \" cd player && node player.js --music=../musicRepository/" + Music + " \"";
+    }
+
+    public void MusicPlay() {
+      Thread.Sleep(1000);
+      process.Start();
+      while (!process.StandardOutput.EndOfStream)
+      {
+        Console.WriteLine(process.StandardOutput.ReadLine());
+      }
+      this.process.Dispose();
+    }
     public void Start()
     {
       tickCount = GRAPHIC_PROGRESSION_RATE;
       this.timer.Start();
+      threadMusic = new Thread(this.MusicPlay);
+      threadMusic.IsBackground = true;
     }
     public void Cancel()
     {

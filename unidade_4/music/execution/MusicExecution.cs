@@ -16,23 +16,28 @@ namespace gcgcg
     {
       var music = MusicProvider.get(musicName);
       this.noteQueue = new NoteQueue(MusicPreProcessor.PreProcessNotes(music.notes));
-      this.musicTimer = new MusicTimer(music, () => {
+      this.musicTimer = new MusicTimer(music, () =>
+      {
         if (noteQueue.hasNext())
         {
           executeNotes(noteQueue.next());
-        } else if (musicEndDelay > 0)
+        }
+        else if (musicEndDelay > 0)
         {
           musicEndDelay--;
           executeNotes(new byte[5]);
-        } else {
+        }
+        else
+        {
           this.musicTimer.Cancel();
-          foreach(var onStopAction in onStopListeners)
+          foreach (var onStopAction in onStopListeners)
           {
             onStopAction();
           }
         }
-      }, progress => {
-        foreach(var onUpdateRenderingListener in onUpdateRenderingListeners)
+      }, progress =>
+      {
+        foreach (var onUpdateRenderingListener in onUpdateRenderingListeners)
         {
           onUpdateRenderingListener(progress);
         }
@@ -40,14 +45,14 @@ namespace gcgcg
     }
     private void executeNotes(byte[] notes)
     {
-      foreach(var onNoteListener in onNoteListeners)
+      foreach (var onNoteListener in onNoteListeners)
       {
         onNoteListener(notes);
       }
     }
     public void Start()
     {
-      foreach(var beforeStartListener in beforeStartListeners)
+      foreach (var beforeStartListener in beforeStartListeners)
       {
         beforeStartListener();
       }
@@ -57,13 +62,16 @@ namespace gcgcg
     {
       musicTimer.Cancel();
     }
-    public void OnBeforeStart(Runnable runnable) {
+    public void OnBeforeStart(Runnable runnable)
+    {
       beforeStartListeners.Add(runnable);
     }
-    public void OnNote(Consumer<byte[]> consumer) {
+    public void OnNote(Consumer<byte[]> consumer)
+    {
       onNoteListeners.Add(consumer);
     }
-    public void OnStop(Runnable runnable) {
+    public void OnStop(Runnable runnable)
+    {
       onStopListeners.Add(runnable);
     }
     public void onUpdateRendering(Consumer<byte> runnable)

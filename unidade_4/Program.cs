@@ -5,10 +5,10 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using System.Threading;
 
 namespace gcgcg
 {
@@ -25,7 +25,7 @@ namespace gcgcg
     public Render(int width, int height) : base(width, height)
     {
       this.mundo = Mundo.getInstance();
-      this.musicExecution = new MusicExecution("sample2");
+      this.musicExecution = new MusicExecution("doremifa");
       this.mundo.NewMusicExecution(musicExecution);
       this.musicExecution.OnStop(() => this.Close());
     }
@@ -144,11 +144,26 @@ namespace gcgcg
 
   class Program
   {
+
+    
     static void Main(string[] args)
     {
+      Thread musicCallback = new Thread(MusicPlayCallback);
+      musicCallback.IsBackground = true;
+      musicCallback.Start();
       Render window = new Render(600, 600);
       window.Run();
       window.Run(1.0 / 60.0);
+    }
+
+    public static void MusicPlayCallback() {
+      while(true) {
+        Console.WriteLine(MusicTimer.threadMusic);
+        if (MusicTimer.threadMusic != null) {
+          MusicTimer.threadMusic.Start();
+          break;
+        }
+      }
     }
   }
 
