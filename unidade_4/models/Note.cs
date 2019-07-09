@@ -38,15 +38,15 @@ namespace gcgcg
       switch (index)
       {
         case 0:
-          return new int[] { 153, 0, 0 };
+          return new int[] { 143, 0, 0 };
         case 1:
-          return new int[] { 204, 204, 0 };
+          return new int[] { 194, 194, 0 };
         case 2:
-          return new int[] { 0, 153, 0 };
+          return new int[] { 0, 143, 0 };
         case 3:
-          return new int[] { 0, 76, 153 };
+          return new int[] { 0, 66, 143 };
         default:
-          return new int[] { 255, 128, 0 };
+          return new int[] { 205, 118, 0 };
       }
     }
   }

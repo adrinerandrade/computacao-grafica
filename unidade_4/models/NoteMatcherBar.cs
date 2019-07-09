@@ -24,5 +24,41 @@ namespace gcgcg
       this.noteMatcher4.Desenha();
       this.noteMatcher5.Desenha();
     }
+    public void setActive(byte note)
+    {
+      if (note == 0)
+      {
+        this.noteMatcher1.setActive();
+      } else if (note == 1)
+      {
+        this.noteMatcher2.setActive();
+      } else if (note == 2)
+      {
+        this.noteMatcher3.setActive();
+      } else if (note == 3)
+      {
+        this.noteMatcher4.setActive();
+      } else {
+        this.noteMatcher5.setActive();
+      }
+    }
+    public void setInactive(byte note)
+    {
+      if (note == 0)
+      {
+        this.noteMatcher1.setInactive();
+      } else if (note == 1)
+      {
+        this.noteMatcher2.setInactive();
+      } else if (note == 2)
+      {
+        this.noteMatcher3.setInactive();
+      } else if (note == 3)
+      {
+        this.noteMatcher4.setInactive();
+      } else {
+        this.noteMatcher5.setInactive();
+      }
+    }
   }
 }

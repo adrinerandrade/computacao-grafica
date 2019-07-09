@@ -50,6 +50,20 @@ namespace gcgcg
         this.guitarTab.TranslateTabs(0, 0, translationZ);
       });
     }
+    public void notePressed(byte note)
+    {
+      if (this.noteMatcherBar != null)
+      {
+        this.noteMatcherBar.setActive(note);
+      }
+    }
+    public void noteReleased(byte note)
+    {
+      if (this.noteMatcherBar != null)
+      {
+        this.noteMatcherBar.setInactive(note);
+      }
+    }
   }
 
 }

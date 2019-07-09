@@ -22,11 +22,15 @@ namespace gcgcg
       this.x = x;
       this.y = y;
       this.z = z;
-      this.color = rgbToGlColor(color[0], color[1], color[2]);
+      setColor(color);
       this.length = length;
       this.width = width;
       this.height = height;
       this.texture = texture;
+    }
+    public void setColor(int[] color)
+    {
+      this.color = rgbToGlColor(color[0], color[1], color[2]);
     }
     protected override void draw()
     {

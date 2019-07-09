@@ -105,19 +105,36 @@ namespace gcgcg
     protected override void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
     {
       if (e.Key == Key.A)
-        Console.WriteLine("play 0");
+        this.mundo.notePressed(0);
       else
         if (e.Key == Key.S)
-        Console.WriteLine("play 1");
+        this.mundo.notePressed(1);
       else
         if (e.Key == Key.D)
-        Console.WriteLine("play 2");
+        this.mundo.notePressed(2);
       else
         if (e.Key == Key.F)
-        Console.WriteLine("play 3");
+        this.mundo.notePressed(3);
       else
         if (e.Key == Key.G)
-        Console.WriteLine("play 4");
+        this.mundo.notePressed(4);
+    }
+    protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e)
+    {
+      if (e.Key == Key.A)
+        this.mundo.noteReleased(0);
+      else
+        if (e.Key == Key.S)
+        this.mundo.noteReleased(1);
+      else
+        if (e.Key == Key.D)
+        this.mundo.noteReleased(2);
+      else
+        if (e.Key == Key.F)
+        this.mundo.noteReleased(3);
+      else
+        if (e.Key == Key.G)
+        this.mundo.noteReleased(4);
     }
     protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
     {
