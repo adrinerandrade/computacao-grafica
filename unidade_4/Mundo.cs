@@ -18,6 +18,7 @@ namespace gcgcg
     public static Mundo instance = null;
     private MusicExecution musicExecution;
     private GuitarTab guitarTab;
+    private NoteMatcherBar noteMatcherBar;
     private Background background = new Background();
     public static Mundo getInstance()
     {
@@ -29,16 +30,17 @@ namespace gcgcg
     {
       if (guitarTab != null)
       {
-        background.Desenha();
-        guitarTab.Desenha();
+        this.background.Desenha();
+        this.guitarTab.Desenha();
+        this.noteMatcherBar.Desenha();
       }
-      SRU3D();
     }
     public void NewMusicExecution(MusicExecution musicExecution)
     {
       this.musicExecution = musicExecution;
       musicExecution.OnBeforeStart(() => {
         this.guitarTab = new GuitarTab();
+        this.noteMatcherBar = new NoteMatcherBar();
       });
       musicExecution.OnNote(note => {
         this.guitarTab.NewTab(note);
@@ -47,19 +49,6 @@ namespace gcgcg
       musicExecution.onUpdateRendering(progress => {
         this.guitarTab.TranslateTabs(0, 0, translationZ);
       });
-    }
-    private void SRU3D()
-    {
-      GL.LineWidth(1);
-      
-      GL.Begin(PrimitiveType.Lines);
-      GL.Color3(Color.Red);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(200, 0, 0);
-      GL.Color3(Color.Green);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, 200, 0);
-      GL.Color3(Color.Blue);
-      GL.Vertex3(0, 0, 0); GL.Vertex3(0, 0, 200);
-      GL.End();
     }
   }
 

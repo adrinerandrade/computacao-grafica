@@ -5,7 +5,7 @@ namespace gcgcg
   internal class Note: Block
   {
     public Note(Tab tab, byte index, byte type): base(
-      getXPosition(tab, index), tab.y + (Tab.HEIGHT / 2), 
+      getXPosition(tab.x, index), tab.y + (Tab.HEIGHT / 2), 
       tab.z, 
       getColor(index), 
       getLength(type), 
@@ -16,10 +16,10 @@ namespace gcgcg
     {
       tab.addChild(this);
     }
-    private static float getXPosition(Tab tab, byte index)
+    public static float getXPosition(float tabX, byte index)
     {
       var factor = Tab.LENGTH / 10;
-      return tab.x + (((index * 2) - 4) * factor);
+      return tabX + (((index * 2) - 4) * factor);
     }
     private static float getWidth(byte type)
     {
@@ -33,7 +33,7 @@ namespace gcgcg
     {
       return type == 1 ? 1 : 0.3f;
     }
-    private static int[] getColor(byte index)
+    public static int[] getColor(byte index)
     {
       switch (index)
       {
