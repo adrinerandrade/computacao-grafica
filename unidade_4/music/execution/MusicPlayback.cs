@@ -31,9 +31,6 @@ namespace gcgcg
 			var version = AL.Get(ALGetString.Version);
 			var vendor = AL.Get(ALGetString.Vendor);
 			var renderer = AL.Get(ALGetString.Renderer);
-			Console.WriteLine(version);
-			Console.WriteLine(vendor);
-			Console.WriteLine(renderer);
 			Console.ReadKey();
 
 			//Process

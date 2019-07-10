@@ -35,7 +35,7 @@ namespace gcgcg
         this.noteMatcherBar.Desenha();
       }
     }
-    public void NewMusicExecution(MusicExecution musicExecution)
+    public void NewMusicExecution(NoteMatcherController noteMatcherController, MusicExecution musicExecution)
     {
       this.musicExecution = musicExecution;
       musicExecution.OnBeforeStart(() => {
@@ -44,6 +44,8 @@ namespace gcgcg
       });
       musicExecution.OnNote(note => {
         this.guitarTab.NewTab(note);
+        var currentTab = this.guitarTab.getTab(GuitarTab.TABS_SIZE - 3);
+        noteMatcherController.setCurrentTab(currentTab);
       });
       var translationZ = (float) Tab.WIDTH / MusicTimer.GRAPHIC_PROGRESSION_RATE;
       musicExecution.onUpdateRendering(progress => {

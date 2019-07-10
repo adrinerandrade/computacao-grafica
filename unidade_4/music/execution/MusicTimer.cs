@@ -6,7 +6,7 @@ namespace gcgcg
 {
   public class MusicTimer
   {
-    public static readonly int GRAPHIC_PROGRESSION_RATE = 16;
+    public static readonly int GRAPHIC_PROGRESSION_RATE = 10;
     private PreciseTimer timer;
     private Runnable bpmRunner;
     private Consumer<byte> graphicRunner;
@@ -18,7 +18,7 @@ namespace gcgcg
     public static Thread threadMusic { get; set; }
     public MusicTimer(Music music, Runnable bpmRunner, Consumer<byte> graphicRunner)
     {
-      this.ExecuteMusic(music.mp3);
+      // this.ExecuteMusic(music.mp3);
       this.noteInterval = (float) ((60000f / music.bpm) / music.subdivision);
       this.graphicInterval = (float) (noteInterval / GRAPHIC_PROGRESSION_RATE);
 
@@ -40,7 +40,7 @@ namespace gcgcg
       process.Start();
       while (!process.StandardOutput.EndOfStream)
       {
-        Console.WriteLine(process.StandardOutput.ReadLine());
+        process.StandardOutput.ReadLine();
       }
       this.process.Dispose();
     }
@@ -48,8 +48,8 @@ namespace gcgcg
     {
       tickCount = GRAPHIC_PROGRESSION_RATE;
       this.timer.Start();
-      threadMusic = new Thread(this.MusicPlay);
-      threadMusic.IsBackground = true;
+      // threadMusic = new Thread(this.MusicPlay);
+      // threadMusic.IsBackground = true;
     }
     public void Cancel()
     {

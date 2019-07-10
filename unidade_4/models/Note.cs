@@ -14,7 +14,6 @@ namespace gcgcg
       new NoteTexture(Render.noteTexture)
     )
     {
-      tab.addChild(this);
     }
     public static float getXPosition(float tabX, byte index)
     {

@@ -16,6 +16,7 @@ namespace gcgcg
   {
     Mundo mundo;
     MusicExecution musicExecution;
+    NoteMatcherController noteMatcherController;
     Camera camera = new Camera();
     Vector3 eye = Vector3.Zero, target = Vector3.Zero, up = Vector3.UnitY;
 
@@ -25,8 +26,9 @@ namespace gcgcg
     public Render(int width, int height) : base(width, height)
     {
       this.mundo = Mundo.getInstance();
+      this.noteMatcherController = new NoteMatcherController();
       this.musicExecution = new MusicExecution("doremifa");
-      this.mundo.NewMusicExecution(musicExecution);
+      this.mundo.NewMusicExecution(noteMatcherController, musicExecution);
       this.musicExecution.OnStop(() => this.Close());
     }
 
@@ -104,23 +106,41 @@ namespace gcgcg
 
     protected override void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
     {
-      if (e.Key == Key.A)
+      if (e.Key == Key.A) {
         this.mundo.notePressed(0);
-      else
-        if (e.Key == Key.S)
-        this.mundo.notePressed(1);
-      else
-        if (e.Key == Key.D)
+        this.noteMatcherController.notePlayed(0);
+      } else if (e.Key == Key.S) {
+          this.mundo.notePressed(1);
+          this.noteMatcherController.notePlayed(1);
+      } else if (e.Key == Key.D) {
         this.mundo.notePressed(2);
-      else
-        if (e.Key == Key.F)
+        this.noteMatcherController.notePlayed(2);
+      } else if (e.Key == Key.F) {
         this.mundo.notePressed(3);
-      else
-        if (e.Key == Key.G)
+        this.noteMatcherController.notePlayed(3);
+      } else if (e.Key == Key.G) {
         this.mundo.notePressed(4);
+        this.noteMatcherController.notePlayed(4);
+      }
     }
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e)
     {
+      if (e.Key == Key.A) {
+        this.mundo.noteReleased(0);
+        this.noteMatcherController.noteReleased(0);
+      } else if (e.Key == Key.S) {
+        this.mundo.noteReleased(1);
+        this.noteMatcherController.noteReleased(1);
+      } else if (e.Key == Key.D) {
+        this.mundo.noteReleased(2);
+        this.noteMatcherController.noteReleased(2);
+      } else if (e.Key == Key.F) {
+        this.mundo.noteReleased(3);
+        this.noteMatcherController.noteReleased(3);
+      } else if (e.Key == Key.G) {
+        this.mundo.noteReleased(4);
+        this.noteMatcherController.noteReleased(4);
+      }
       if (e.Key == Key.A)
         this.mundo.noteReleased(0);
       else
@@ -158,7 +178,6 @@ namespace gcgcg
 
     public static void MusicPlayCallback() {
       while(true) {
-        Console.WriteLine(MusicTimer.threadMusic);
         if (MusicTimer.threadMusic != null) {
           MusicTimer.threadMusic.Start();
           break;

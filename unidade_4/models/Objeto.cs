@@ -71,6 +71,10 @@ namespace gcgcg
     {
       this.children.Add(child);
     }
+    public void removeChild(Objeto child)
+    {
+      this.children.Remove(child);
+    }
     public void translacaoXYZ(double tx, double ty, double tz)
     {
       Transformacao4D matrizTranslate = new Transformacao4D();

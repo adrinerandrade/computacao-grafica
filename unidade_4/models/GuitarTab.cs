@@ -2,7 +2,7 @@ using System;
 
 namespace gcgcg
 {
-  public class GuitarTab
+  internal class GuitarTab
   {
     public static readonly int TABS_SIZE = 11;
     private readonly float INITIAL_POSITION;
@@ -19,6 +19,10 @@ namespace gcgcg
     public void NewTab(byte[] notes)
     {
       this.NewTab(notes, false);
+    }
+    public Tab getTab(int index)
+    {
+      return tabs[index];
     }
     private void NewTab(byte[] notes, bool translate)
     {

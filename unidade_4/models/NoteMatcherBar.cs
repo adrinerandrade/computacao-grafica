@@ -9,7 +9,7 @@ namespace gcgcg
     private NoteMatcher noteMatcher5;
     public NoteMatcherBar()
     {
-      float z = (((GuitarTab.TABS_SIZE / 2) - 1) * Tab.WIDTH);
+      float z = (((GuitarTab.TABS_SIZE / 2) - 1) * Tab.WIDTH) - Tab.WIDTH / 4;
       this.noteMatcher1 = new NoteMatcher(z, 0);
       this.noteMatcher2 = new NoteMatcher(z, 1);
       this.noteMatcher3 = new NoteMatcher(z, 2);
