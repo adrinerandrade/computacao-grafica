@@ -23,6 +23,8 @@ namespace gcgcg
     public static int tabTexture;
     public static int noteTexture;
 
+    public bool light { get; set; } = false;
+
     public Render(int width, int height) : base(width, height)
     {
       this.mundo = Mundo.getInstance();
@@ -115,14 +117,18 @@ namespace gcgcg
       Matrix4 modelview = Matrix4.LookAt(eye, target, up);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
-      GL.Enable(EnableCap.Lighting);
-      GL.Enable(EnableCap.Light0);
+
+      if (light) {
+        GL.Enable(EnableCap.Lighting);
+        GL.Enable(EnableCap.Light0);
+      }
 
       GL.Enable(EnableCap.ColorMaterial);
       mundo.Desenha();
-
-      GL.Disable(EnableCap.Lighting);
-      GL.Disable(EnableCap.Light0);
+      if (light) {
+        GL.Disable(EnableCap.Lighting);
+        GL.Disable(EnableCap.Light0);
+      }
       this.SwapBuffers();
     }
 
@@ -152,6 +158,8 @@ namespace gcgcg
       {
         this.mundo.notePressed(4);
         this.noteMatcherController.notePlayed(4);
+      } else if (e.Key == Key.L) {
+        this.light = !this.light;
       }
     }
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e)
@@ -222,6 +230,7 @@ namespace gcgcg
       {
         if (MusicTimer.threadMusic != null)
         {
+          Console.WriteLine("foi");
           MusicTimer.threadMusic.Start();
           break;
         }

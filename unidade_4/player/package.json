@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "electron": "^5.0.6",
     "node-mp3-player": "^1.0.3"
   }
 }
