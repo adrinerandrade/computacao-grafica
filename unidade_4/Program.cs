@@ -83,10 +83,10 @@ namespace gcgcg
       GL.LightModel(LightModelParameter.LightModelLocalViewer, 1);
 
       // Use GL.Material to set your object's material parameters.
-      GL.Material(MaterialFace.Front, MaterialParameter.Ambient, new float[] { 0.3f, 0.3f, 0.3f, 1.0f });
-      GL.Material(MaterialFace.Front, MaterialParameter.Diffuse, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
-      GL.Material(MaterialFace.Front, MaterialParameter.Specular, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
-      GL.Material(MaterialFace.Front, MaterialParameter.Emission, new float[] { 0.0f, 0.0f, 0.0f, 1.0f });
+      GL.Material(MaterialFace.Back, MaterialParameter.Ambient, new float[] { 0.3f, 0.3f, 0.3f, 1.0f });
+      GL.Material(MaterialFace.Back, MaterialParameter.Diffuse, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
+      GL.Material(MaterialFace.Back, MaterialParameter.Specular, new float[] { 1.0f, 1.0f, 1.0f, 1.0f });
+      GL.Material(MaterialFace.Back, MaterialParameter.Emission, new float[] { 0.0f, 0.0f, 0.0f, 1.0f });
 
       this.musicExecution.Start();
     }
@@ -114,46 +114,70 @@ namespace gcgcg
 
       Matrix4 modelview = Matrix4.LookAt(eye, target, up);
       GL.MatrixMode(MatrixMode.Modelview);
-      GL.LoadMatrix(ref modelview);      
+      GL.LoadMatrix(ref modelview);
+      GL.Enable(EnableCap.Lighting);
+      GL.Enable(EnableCap.Light0);
+
+      GL.Enable(EnableCap.ColorMaterial);
       mundo.Desenha();
 
+      GL.Disable(EnableCap.Lighting);
+      GL.Disable(EnableCap.Light0);
       this.SwapBuffers();
     }
 
     protected override void OnKeyDown(OpenTK.Input.KeyboardKeyEventArgs e)
     {
-      if (e.Key == Key.A) {
+      if (e.Key == Key.A)
+      {
         this.mundo.notePressed(0);
         this.noteMatcherController.notePlayed(0);
-      } else if (e.Key == Key.S) {
-          this.mundo.notePressed(1);
-          this.noteMatcherController.notePlayed(1);
-      } else if (e.Key == Key.D) {
+      }
+      else if (e.Key == Key.S)
+      {
+        this.mundo.notePressed(1);
+        this.noteMatcherController.notePlayed(1);
+      }
+      else if (e.Key == Key.D)
+      {
         this.mundo.notePressed(2);
         this.noteMatcherController.notePlayed(2);
-      } else if (e.Key == Key.F) {
+      }
+      else if (e.Key == Key.F)
+      {
         this.mundo.notePressed(3);
         this.noteMatcherController.notePlayed(3);
-      } else if (e.Key == Key.G) {
+      }
+      else if (e.Key == Key.G)
+      {
         this.mundo.notePressed(4);
         this.noteMatcherController.notePlayed(4);
       }
     }
     protected override void OnKeyUp(OpenTK.Input.KeyboardKeyEventArgs e)
     {
-      if (e.Key == Key.A) {
+      if (e.Key == Key.A)
+      {
         this.mundo.noteReleased(0);
         this.noteMatcherController.noteReleased(0);
-      } else if (e.Key == Key.S) {
+      }
+      else if (e.Key == Key.S)
+      {
         this.mundo.noteReleased(1);
         this.noteMatcherController.noteReleased(1);
-      } else if (e.Key == Key.D) {
+      }
+      else if (e.Key == Key.D)
+      {
         this.mundo.noteReleased(2);
         this.noteMatcherController.noteReleased(2);
-      } else if (e.Key == Key.F) {
+      }
+      else if (e.Key == Key.F)
+      {
         this.mundo.noteReleased(3);
         this.noteMatcherController.noteReleased(3);
-      } else if (e.Key == Key.G) {
+      }
+      else if (e.Key == Key.G)
+      {
         this.mundo.noteReleased(4);
         this.noteMatcherController.noteReleased(4);
       }
@@ -181,7 +205,7 @@ namespace gcgcg
   class Program
   {
 
-    
+
     static void Main(string[] args)
     {
       Thread musicCallback = new Thread(MusicPlayCallback);
@@ -192,9 +216,12 @@ namespace gcgcg
       window.Run(1.0 / 60.0);
     }
 
-    public static void MusicPlayCallback() {
-      while(true) {
-        if (MusicTimer.threadMusic != null) {
+    public static void MusicPlayCallback()
+    {
+      while (true)
+      {
+        if (MusicTimer.threadMusic != null)
+        {
           MusicTimer.threadMusic.Start();
           break;
         }
