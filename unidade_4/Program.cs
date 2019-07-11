@@ -230,7 +230,6 @@ namespace gcgcg
       {
         if (MusicTimer.threadMusic != null)
         {
-          Console.WriteLine("foi");
           MusicTimer.threadMusic.Start();
           break;
         }

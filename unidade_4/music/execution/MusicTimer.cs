@@ -13,11 +13,13 @@ namespace gcgcg
     private float noteInterval;
     private float graphicInterval;
     private int tickCount;
+    private int musicDelay;
 
     private Process process;
     public static Thread threadMusic { get; set; }
     public MusicTimer(Music music, Runnable bpmRunner, Consumer<byte> graphicRunner)
     {
+      this.musicDelay = music.delay;
       // this.ExecuteMusic(music.mp3);
       this.noteInterval = (float) ((60000f / music.bpm) / music.subdivision);
       this.graphicInterval = (float) (noteInterval / GRAPHIC_PROGRESSION_RATE);
@@ -36,7 +38,7 @@ namespace gcgcg
     }
 
     public void MusicPlay() {
-      Thread.Sleep(1000);
+      Thread.Sleep(this.musicDelay);
       process.Start();
       while (!process.StandardOutput.EndOfStream)
       {

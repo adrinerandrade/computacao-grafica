@@ -2,6 +2,7 @@
   "name": "Do Ré Mi Fá",
   "mp3": "doremifa.mp3",
   "bpm": 80,
+  "delay": 1700,
   "subdivision": 2,
   "notes": [
     [[0]],
