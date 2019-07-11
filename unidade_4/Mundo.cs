@@ -30,7 +30,7 @@ namespace gcgcg
     {
       if (guitarTab != null)
       {
-        this.background.Desenha();
+        // this.background.Desenha();
         this.guitarTab.Desenha();
         this.noteMatcherBar.Desenha();
       }
