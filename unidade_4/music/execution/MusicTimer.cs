@@ -20,7 +20,7 @@ namespace gcgcg
     public MusicTimer(Music music, Runnable bpmRunner, Consumer<byte> graphicRunner)
     {
       this.musicDelay = music.delay;
-      // this.ExecuteMusic(music.mp3);
+      this.ExecuteMusic(music.mp3);
       this.noteInterval = (float) ((60000f / music.bpm) / music.subdivision);
       this.graphicInterval = (float) (noteInterval / GRAPHIC_PROGRESSION_RATE);
 
@@ -50,8 +50,8 @@ namespace gcgcg
     {
       tickCount = GRAPHIC_PROGRESSION_RATE;
       this.timer.Start();
-      // threadMusic = new Thread(this.MusicPlay);
-      // threadMusic.IsBackground = true;
+      threadMusic = new Thread(this.MusicPlay);
+      threadMusic.IsBackground = true;
     }
     public void Cancel()
     {
